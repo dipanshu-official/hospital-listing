@@ -18,7 +18,8 @@ import {
   Activity,
   TrendingUp,
   UserCheck,
-  Zap
+  Zap,
+  DollarSign
 } from 'lucide-react';
 
 const AboutPage = () => {
