@@ -133,13 +133,13 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
   const displayResults = filteredResults.length > 0 ? filteredResults : searchResults;
   return (
-    <div className="glass-effect rounded-2xl shadow-xl border border-white/30 p-8 mb-8 animate-fade-in">
+    <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8 mb-8 animate-fade-in">
       {/* Hero Section */}
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent mb-4">
           Discover Quality Healthcare Providers
         </h2>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-blue-700 text-lg max-w-2xl mx-auto leading-relaxed">
           Browse our comprehensive directory of hospitals and medical centers. Use the search below to find specific providers or services.
         </p>
       </div>
@@ -154,7 +154,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
             placeholder="Search hospitals, doctors, services..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+            className="w-full pl-12 pr-4 py-4 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl"
           />
         </div>
 
@@ -166,12 +166,12 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
             placeholder="Enter city, state, or ZIP code"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+            className="w-full pl-12 pr-4 py-4 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl"
           />
         </div>
 
         {/* Search Button */}
-        <button className="bg-gradient-to-r from-slate-500 to-slate-600 text-white px-6 py-4 rounded-xl hover:from-slate-600 hover:to-slate-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105">
+        <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105">
           Search Hospitals
         </button>
       </div>
@@ -180,25 +180,25 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
       <div className="flex justify-between items-center">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center space-x-2 text-gray-500 hover:text-slate-600 transition-all duration-200 font-medium hover:scale-105"
+          className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-all duration-200 font-medium hover:scale-105 bg-blue-50 px-4 py-2 rounded-xl"
         >
           <Filter className="w-5 h-5" />
           <span>Advanced Filters</span>
         </button>
-        <div className="text-sm text-gray-500 font-medium">
+        <div className="text-sm text-blue-600 font-medium bg-blue-50 px-4 py-2 rounded-xl">
           {isSearching ? `Found ${searchResults.length} results` : 'Showing all hospitals'}
         </div>
       </div>
 
       {/* Search Filters - Only show when searching */}
       {isSearching && searchTerm && (
-        <div className="mt-8 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 animate-slide-up">
+        <div className="mt-8 bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200 p-6 animate-slide-up">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-3">
-              <Filter className="w-6 h-6 text-slate-600" />
-              <h3 className="text-xl font-bold text-gray-900">Filter Results</h3>
+              <Filter className="w-6 h-6 text-blue-600" />
+              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Filter Results</h3>
               {getActiveFilterCount() > 0 && (
-                <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
                   {getActiveFilterCount()} active
                 </span>
               )}
@@ -206,7 +206,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
             {getActiveFilterCount() > 0 && (
               <button
                 onClick={clearAllFilters}
-                className="flex items-center space-x-2 text-gray-500 hover:text-red-600 transition-colors font-medium"
+                className="flex items-center space-x-2 text-blue-500 hover:text-red-600 transition-colors font-medium bg-blue-50 hover:bg-red-50 px-4 py-2 rounded-xl"
               >
                 <X className="w-4 h-4" />
                 <span>Clear All</span>
@@ -223,7 +223,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.resultType}
                 onChange={(e) => handleFilterChange('resultType', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 <option value="all">All Results</option>
                 <option value="hospitals">Hospitals Only</option>
@@ -239,7 +239,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.location}
                 onChange={(e) => handleFilterChange('location', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 {locations.map((loc) => (
                   <option key={loc} value={loc === 'All Locations' ? '' : loc}>
@@ -257,7 +257,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.specialty}
                 onChange={(e) => handleFilterChange('specialty', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 {specialties.map((spec) => (
                   <option key={spec} value={spec === 'All Specialties' ? '' : spec}>
@@ -275,7 +275,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.hospitalType}
                 onChange={(e) => handleFilterChange('hospitalType', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 {hospitalTypes.map((type) => (
                   <option key={type} value={type === 'All Types' ? '' : type}>
@@ -293,7 +293,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.rating}
                 onChange={(e) => handleFilterChange('rating', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 <option value="">Any Rating</option>
                 <option value="4.5">4.5+ Stars</option>
@@ -307,15 +307,15 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
       )}
       {/* Search Results */}
       {isSearching && searchTerm && (
-        <div className="mt-8 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 animate-slide-up">
+        <div className="mt-8 bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200 p-6 animate-slide-up">
           <div className="flex items-center space-x-3 mb-6">
             <Search className="w-6 h-6 text-blue-600" />
-            <h3 className="text-2xl font-bold text-gray-900">Search Results</h3>
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Search Results</h3>
             <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
               {displayResults.length} found
             </span>
             {getActiveFilterCount() > 0 && (
-              <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+              <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">
                 {getActiveFilterCount()} filters applied
               </span>
             )}
@@ -324,12 +324,12 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
           {displayResults.length > 0 ? (
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {displayResults.map((result, index) => (
-                <div key={index} className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all duration-200 hover:scale-105 group">
+                <div key={index} className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200 hover:shadow-lg transition-all duration-200 hover:scale-105 group">
                   <div className="flex items-start space-x-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-md ${
                       result.type === 'hospital' 
-                        ? 'bg-gradient-to-br from-slate-400 to-slate-500' 
-                        : 'bg-gradient-to-br from-gray-400 to-gray-500'
+                        ? 'bg-gradient-to-br from-blue-500 to-indigo-600' 
+                        : 'bg-gradient-to-br from-indigo-500 to-purple-600'
                     }`}>
                       {result.type === 'hospital' ? (
                         <Building className="w-6 h-6 text-white" />
@@ -340,19 +340,19 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                     
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <h4 className="text-lg font-bold text-gray-800 group-hover:text-slate-600 transition-colors">
+                        <h4 className="text-lg font-bold text-blue-900 group-hover:text-blue-700 transition-colors">
                           {result.name}
                         </h4>
                         <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
                           result.type === 'hospital' 
-                            ? 'bg-slate-100 text-slate-600' 
-                            : 'bg-gray-100 text-gray-600'
+                            ? 'bg-blue-100 text-blue-700' 
+                            : 'bg-indigo-100 text-indigo-700'
                         }`}>
                           {result.type === 'hospital' ? 'Hospital' : 'Service'}
                         </span>
                       </div>
                       
-                      <p className="text-gray-600 text-sm mb-2 leading-relaxed">
+                      <p className="text-blue-700 text-sm mb-2 leading-relaxed">
                         {result.description}
                       </p>
                       
@@ -369,10 +369,10 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                         </div>
                       ) : (
                         <div className="flex items-center justify-between">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-blue-600">
                             <span className="font-medium">{result.hospitalName}</span> • {result.category}
                           </div>
-                          <div className="bg-slate-500 text-white px-3 py-1 rounded-lg text-sm font-bold">
+                          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-1 rounded-lg text-sm font-bold shadow-md">
                             {result.price}
                           </div>
                         </div>
@@ -383,16 +383,16 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl border-2 border-dashed border-gray-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="text-center py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-dashed border-blue-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Search className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-2">No Results Found</h4>
-              <p className="text-gray-600 mb-4">Try searching with different keywords or adjusting your filters</p>
+              <h4 className="text-xl font-bold text-blue-900 mb-2">No Results Found</h4>
+              <p className="text-blue-700 mb-4">Try searching with different keywords or adjusting your filters</p>
               {getActiveFilterCount() > 0 && (
                 <button
                   onClick={clearAllFilters}
-                  className="bg-gradient-to-r from-slate-500 to-slate-600 text-white px-6 py-3 rounded-xl hover:from-slate-600 hover:to-slate-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   Clear Filters
                 </button>
@@ -414,7 +414,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={specialty}
                 onChange={(e) => setSpecialty(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+                className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl"
               >
                 {specialties.map((spec) => (
                   <option key={spec} value={spec}>
@@ -432,7 +432,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={rating}
                 onChange={(e) => setRating(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+                className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl"
               >
                 <option value="">Any Rating</option>
                 <option value="4">4+ Stars</option>
@@ -447,6 +447,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                 Distance
               </label>
               <select className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg">
+              <select className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl">
                 <option value="">Any Distance</option>
                 <option value="5">Within 5 miles</option>
                 <option value="10">Within 10 miles</option>

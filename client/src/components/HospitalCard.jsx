@@ -30,9 +30,9 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
   };
 
   return (
-    <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-105 hover:-translate-y-2">
+    <div className="group bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-blue-200/50 hover:scale-105 hover:-translate-y-2">
       {/* Hospital Image */}
-      <div className="relative h-56 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
+      <div className="relative h-56 bg-gradient-to-br from-blue-100 to-indigo-200 overflow-hidden">
         <img
           src={image}
           alt={name}
@@ -75,7 +75,7 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
             {name}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold">
+            <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
               {type}
             </span>
             <div className="flex items-center space-x-1">
@@ -88,8 +88,8 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
 
         {/* Location */}
         <div className="flex items-start space-x-2 text-gray-600">
-          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-slate-400" />
-          <p className="text-sm font-medium leading-relaxed">
+          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-500" />
+          <p className="text-sm font-medium leading-relaxed text-blue-700">
             {address.split(',').slice(0, 2).join(', ')}
           </p>
         </div>
@@ -99,33 +99,33 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
           {specialties.slice(0, 2).map((specialty) => (
             <span
               key={specialty}
-              className="bg-gray-50 text-gray-600 px-3 py-1 rounded-full text-xs font-medium border border-gray-100"
+              className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium border border-blue-200"
             >
               {specialty}
             </span>
           ))}
           {specialties.length > 2 && (
-            <span className="bg-slate-50 text-slate-500 px-3 py-1 rounded-full text-xs font-medium border border-slate-200">
+            <span className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium border border-indigo-200">
               +{specialties.length - 2} more
             </span>
           )}
         </div>
 
         {/* Actions */}
-        <div className="pt-4 border-t border-gray-100">
+        <div className="pt-4 border-t border-blue-100">
           <div className="flex space-x-3">
             <button
               onClick={handleViewServices}
-              className="flex-1 bg-gradient-to-r from-slate-500 to-slate-600 text-white py-3 px-4 rounded-2xl hover:from-slate-600 hover:to-slate-700 transition-all duration-300 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl group-hover:scale-105"
+              className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-2xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl group-hover:scale-105"
             >
               <span>View Details</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <a
               href={`tel:${phone}`}
-              className="flex items-center justify-center px-4 py-3 border-2 border-gray-200 rounded-2xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+              className="flex items-center justify-center px-4 py-3 border-2 border-blue-200 rounded-2xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
             >
-              <Phone className="w-4 h-4 text-slate-500" />
+              <Phone className="w-4 h-4 text-blue-600" />
             </a>
           </div>
         </div>
