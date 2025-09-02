@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Filter, Star } from 'lucide-react';
+import { Search, MapPin, Filter, Star, Building, Stethoscope } from 'lucide-react';
 
-const SearchFilters = () => {
+const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [specialty, setSpecialty] = useState('');
   const [rating, setRating] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value);
+  };
 
   const specialties = [
     'All Specialties',
@@ -41,7 +47,7 @@ const SearchFilters = () => {
             type="text"
             placeholder="Search hospitals, doctors, services..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
             className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
           />
         </div>
@@ -74,9 +80,93 @@ const SearchFilters = () => {
           <span>Advanced Filters</span>
         </button>
         <div className="text-sm text-gray-500 font-medium">
-          Showing all hospitals
+          {isSearching ? `Found ${searchResults.length} results` : 'Showing all hospitals'}
         </div>
       </div>
+
+      {/* Search Results */}
+      {isSearching && searchTerm && (
+        <div className="mt-8 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 animate-slide-up">
+          <div className="flex items-center space-x-3 mb-6">
+            <Search className="w-6 h-6 text-blue-600" />
+            <h3 className="text-2xl font-bold text-gray-900">Search Results</h3>
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+              {searchResults.length} found
+            </span>
+          </div>
+
+          {searchResults.length > 0 ? (
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+              {searchResults.map((result, index) => (
+                <div key={index} className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-all duration-200 hover:scale-105 group">
+                  <div className="flex items-start space-x-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-md ${
+                      result.type === 'hospital' 
+                        ? 'bg-gradient-to-br from-blue-500 to-indigo-600' 
+                        : 'bg-gradient-to-br from-emerald-500 to-green-600'
+                    }`}>
+                      {result.type === 'hospital' ? (
+                        <Building className="w-6 h-6 text-white" />
+                      ) : (
+                        <Stethoscope className="w-6 h-6 text-white" />
+                      )}
+                    </div>
+                    
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                          {result.name}
+                        </h4>
+                        <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                          result.type === 'hospital' 
+                            ? 'bg-blue-100 text-blue-700' 
+                            : 'bg-emerald-100 text-emerald-700'
+                        }`}>
+                          {result.type === 'hospital' ? 'Hospital' : 'Service'}
+                        </span>
+                      </div>
+                      
+                      <p className="text-gray-600 text-sm mb-2 leading-relaxed">
+                        {result.description}
+                      </p>
+                      
+                      {result.type === 'hospital' ? (
+                        <div className="flex items-center space-x-4 text-sm">
+                          <div className="flex items-center space-x-1">
+                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                            <span className="font-semibold">{result.rating}</span>
+                          </div>
+                          <div className="flex items-center space-x-1 text-gray-500">
+                            <MapPin className="w-4 h-4" />
+                            <span>{result.location}</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between">
+                          <div className="text-sm text-gray-500">
+                            <span className="font-medium">{result.hospitalName}</span> • {result.category}
+                          </div>
+                          <div className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-bold">
+                            {result.price}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl border-2 border-dashed border-gray-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-xl font-bold text-gray-900 mb-2">No Results Found</h4>
+              <p className="text-gray-600">Try searching with different keywords</p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Advanced Filters */}
       {showFilters && (
