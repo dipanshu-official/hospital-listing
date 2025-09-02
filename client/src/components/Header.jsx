@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Menu, X, Heart, User } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
@@ -40,8 +42,12 @@ const Header = () => {
             <button className="p-2 text-gray-600 hover:text-medical-600 transition-colors">
               <Heart className="w-5 h-5" />
             </button>
-            <button className="bg-medical-600 text-white px-4 py-2 rounded-lg hover:bg-medical-700 transition-colors font-medium">
-              Sign In
+            <button 
+              onClick={() => navigate('/profile')}
+              className="bg-medical-600 text-white px-4 py-2 rounded-lg hover:bg-medical-700 transition-colors font-medium flex items-center space-x-2"
+            >
+              <User className="w-4 h-4" />
+              <span>Profile</span>
             </button>
           </div>
 
@@ -71,8 +77,15 @@ const Header = () => {
                 Contact
               </a>
               <div className="pt-3 border-t border-gray-200">
-                <button className="w-full bg-medical-600 text-white px-4 py-2 rounded-lg hover:bg-medical-700 transition-colors font-medium">
-                  Sign In
+                <button 
+                  onClick={() => {
+                    navigate('/profile');
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full bg-medical-600 text-white px-4 py-2 rounded-lg hover:bg-medical-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Profile</span>
                 </button>
               </div>
             </nav>
