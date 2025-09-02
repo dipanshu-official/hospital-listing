@@ -132,7 +132,6 @@ const HospitalServicesPage = () => {
             <button className="p-4 backdrop-blur-md rounded-2xl border bg-white/90 text-gray-600 border-white/50 hover:bg-blue-50 hover:text-blue-400 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110">
               <Navigation className="w-6 h-6" />
             </button>
-            </button>
           </div>
 
           {/* Hospital Title */}
