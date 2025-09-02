@@ -35,7 +35,8 @@ const HomePage = () => {
           description: hospital.description,
           rating: hospital.rating,
           location: `${hospital.address.split(',')[1]}, ${hospital.address.split(',')[2]}`,
-          hospitalId: hospital.id
+          hospitalId: hospital.id,
+          hospitalType: hospital.type
         });
       }
 
@@ -55,7 +56,9 @@ const HomePage = () => {
               price: service.price,
               category: serviceCategory.category,
               hospitalName: hospital.name,
-              hospitalId: hospital.id
+              hospitalId: hospital.id,
+              location: `${hospital.address.split(',')[1]}, ${hospital.address.split(',')[2]}`,
+              hospitalType: hospital.type
             });
           }
         });
