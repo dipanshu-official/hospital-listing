@@ -29,6 +29,7 @@ const HospitalServicesPage = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(0); // Start with first category selected
   const [favorites, setFavorites] = useState(new Set([1, 3, 5]));
+  const [searchTerm, setSearchTerm] = useState('');
 
   const hospital = mockHospitals.find(h => h.id === parseInt(id));
 
@@ -61,6 +62,28 @@ const HospitalServicesPage = () => {
   };
 
   const isFavorite = favorites.has(hospital.id);
+
+  // Filter services based on search term
+  const filteredServices = hospital.services[selectedCategory]?.items.filter(service =>
+    service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    service.description.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
+
+  // Get all services for global search
+  const allServices = hospital.services.flatMap(category => 
+    category.items.map(item => ({
+      ...item,
+      category: category.category
+    }))
+  );
+
+  const globalFilteredServices = searchTerm 
+    ? allServices.filter(service =>
+        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.category.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
@@ -231,7 +254,21 @@ const HospitalServicesPage = () => {
         {/* Services Navigation & Content */}
         <div className="flex">
           {/* Services Navigation */}
-          <div className="w-80 bg-gradient-to-b from-gray-50 to-blue-50 border-r border-gray-200">
+          <div className="w-80 bg-gradient-to-b from-gray-50 to-blue-50 border-r border-gray-200 flex flex-col">
+            {/* Search Box */}
+            <div className="p-6 border-b border-gray-200">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search services..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm hover:shadow-md"
+                />
+              </div>
+            </div>
+
             <div className="p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
                 <Stethoscope className="w-5 h-5 text-blue-600" />
@@ -269,7 +306,283 @@ const HospitalServicesPage = () => {
 
           {/* Selected Category Services */}
           <div className="flex-1 p-8">
-            {hospital.services[selectedCategory] && (
+            {searchTerm ? (
+              /* Global Search Results */
+              <div className="space-y-6">
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                    Search Results
+                  </h3>
+                  <p className="text-gray-600 text-lg">
+                    Found {globalFilteredServices.length} services matching "{searchTerm}"
+                  </p>
+                </div>
+
+                {globalFilteredServices.length > 0 ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {globalFilteredServices.map((service, serviceIndex) => (
+                      <div 
+                        key={serviceIndex} 
+                        className="bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                      >
+                        <div className="space-y-4">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2 mb-2">
+                                <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                  {service.category}
+                                </span>
+                              </div>
+                              <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                {service.name}
+                              </h4>
+                              <p className="text-gray-600 leading-relaxed mb-4">{service.description}</p>
+                              
+                              <div className="flex items-center space-x-4 text-sm">
+                                <div className="flex items-center space-x-1 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                                  <CheckCircle className="w-4 h-4" />
+                                  <span className="font-medium">Available</span>
+                                </div>
+                                <div className="flex items-center space-x-1 text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                  <Calendar className="w-4 h-4" />
+                                  <span className="font-medium">Book Online</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg">
+                              <div className="text-xl font-bold">{service.price}</div>
+                              <div className="text-blue-100 text-xs font-medium">Starting from</div>
+                            </div>
+                            <button className="bg-white border-2 border-blue-200 text-blue-600 px-6 py-3 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 font-semibold shadow-sm hover:shadow-md hover:scale-105">
+                              Get Quote
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl border-2 border-dashed border-gray-300">
+                    <div className="w-24 h-24 bg-gradient-to-br from-gray-300 to-gray-400 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                      <Search className="w-12 h-12 text-white" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-gray-900 mb-3">No Services Found</h4>
+                    <p className="text-gray-600 mb-6 text-lg max-w-md mx-auto">
+                      No services match your search term "{searchTerm}". Try a different keyword.
+                    </p>
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-2xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-xl hover:shadow-2xl hover:scale-105"
+                    >
+                      Clear Search
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : hospital.services[selectedCategory] && (
+              <div className="space-y-6">
+                {/* Category Header */}
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                    {hospital.services[selectedCategory].category}
+                  </h3>
+                  <p className="text-gray-600 text-lg">
+                    {hospital.services[selectedCategory].items.length} available services in this category
+                  </p>
+                </div>
+
+                {/* Services Grid */}
+                {filteredServices.length > 0 ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {filteredServices.map((service, serviceIndex) => (
+                      <div 
+                        key={serviceIndex} 
+                        className="bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                      >
+                        <div className="space-y-4">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                {service.name}
+                              </h4>
+                              <p className="text-gray-600 leading-relaxed mb-4">{service.description}</p>
+                              
+                              <div className="flex items-center space-x-4 text-sm">
+                                <div className="flex items-center space-x-1 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                                  <CheckCircle className="w-4 h-4" />
+                                  <span className="font-medium">Available</span>
+                                </div>
+                                <div className="flex items-center space-x-1 text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                  <Calendar className="w-4 h-4" />
+                                  <span className="font-medium">Book Online</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg">
+                              <div className="text-xl font-bold">{service.price}</div>
+                              <div className="text-blue-100 text-xs font-medium">Starting from</div>
+                            </div>
+                            <button className="bg-white border-2 border-blue-200 text-blue-600 px-6 py-3 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 font-semibold shadow-sm hover:shadow-md hover:scale-105">
+                              Get Quote
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl border-2 border-dashed border-gray-300">
+                    <div className="w-24 h-24 bg-gradient-to-br from-gray-300 to-gray-400 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                      <Search className="w-12 h-12 text-white" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-gray-900 mb-3">No Services Found</h4>
+                    <p className="text-gray-600 mb-6 text-lg max-w-md mx-auto">
+                      No services in this category match your search. Try a different term or browse other categories.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Services Section */}
+      <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+        {/* Section Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-8 text-white">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <DollarSign className="w-8 h-8" />
+            </div>
+            <h2 className="text-4xl font-bold mb-3">Medical Services & Pricing</h2>
+            <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed">
+              Browse our comprehensive medical services by category. Use the search to find specific services or select a category from the navigation.
+            </p>
+          </div>
+        </div>
+
+        {/* Services Navigation & Content */}
+        <div className="flex">
+          {/* Services Navigation */}
+          <div className="w-80 bg-gradient-to-b from-gray-50 to-blue-50 border-r border-gray-200 flex flex-col">
+            {/* Search Box */}
+            <div className="p-6 border-b border-gray-200">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search services..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm hover:shadow-md"
+                />
+              </div>
+            </div>
+
+            <div className="p-6 flex-1">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                <Stethoscope className="w-5 h-5 text-blue-600" />
+                <span>Service Categories</span>
+              </h3>
+              <div className="space-y-2">
+                {hospital.services.map((serviceCategory, categoryIndex) => (
+                  <button
+                    key={serviceCategory.category}
+                    onClick={() => {
+                      setSelectedCategory(categoryIndex);
+                      setSearchTerm(''); // Clear search when selecting category
+                    }}
+                    className={`w-full text-left p-4 rounded-xl transition-all duration-200 border ${
+                      selectedCategory === categoryIndex && !searchTerm
+                        ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-blue-500 shadow-lg'
+                        : 'bg-white hover:bg-blue-50 text-gray-700 hover:text-blue-600 border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-semibold text-base mb-1">{serviceCategory.category}</h4>
+                        <p className={`text-sm ${
+                          selectedCategory === categoryIndex && !searchTerm ? 'text-blue-100' : 'text-gray-500'
+                        }`}>
+                          {serviceCategory.items.length} services
+                        </p>
+                      </div>
+                      <div className={`w-2 h-2 rounded-full ${
+                      }`}></div>
+                    </div>
+                    Search Results
+                ))}
+              </div>
+                    Found {globalFilteredServices.length} services matching "{searchTerm}"
+          </div>
+
+          {/* Selected Category Services */}
+                {globalFilteredServices.length > 0 ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {globalFilteredServices.map((service, serviceIndex) => (
+                      <div 
+                        key={serviceIndex} 
+                        className="bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+                      >
+                        <div className="space-y-4">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2 mb-2">
+                                <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                  {service.category}
+                                </span>
+                              </div>
+                              <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                {service.name}
+                              </h4>
+                              <p className="text-gray-600 leading-relaxed mb-4">{service.description}</p>
+                              
+                              <div className="flex items-center space-x-4 text-sm">
+                                <div className="flex items-center space-x-1 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                                  <CheckCircle className="w-4 h-4" />
+                                  <span className="font-medium">Available</span>
+                                </div>
+                                <div className="flex items-center space-x-1 text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                  <Calendar className="w-4 h-4" />
+                                  <span className="font-medium">Book Online</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg">
+                              <div className="text-xl font-bold">{service.price}</div>
+                              <div className="text-blue-100 text-xs font-medium">Starting from</div>
+                            </div>
+                            <button className="bg-white border-2 border-blue-200 text-blue-600 px-6 py-3 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 font-semibold shadow-sm hover:shadow-md hover:scale-105">
+                              Get Quote
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl border-2 border-dashed border-gray-300">
+                    <div className="w-24 h-24 bg-gradient-to-br from-gray-300 to-gray-400 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                      <Search className="w-12 h-12 text-white" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-gray-900 mb-3">No Services Found</h4>
+                    <p className="text-gray-600 mb-6 text-lg max-w-md mx-auto">
+                      No services in this category match your search. Try a different term or browse other categories.
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : hospital.services[selectedCategory] && (
               <div className="space-y-6">
                 {/* Category Header */}
                 <div className="text-center mb-8">
@@ -309,7 +622,6 @@ const HospitalServicesPage = () => {
                           </div>
                         </div>
                         
-                        {/* Price and Action */}
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                           <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg">
                             <div className="text-xl font-bold">{service.price}</div>
