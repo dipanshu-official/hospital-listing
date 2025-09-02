@@ -136,10 +136,10 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
     <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8 mb-8 animate-fade-in">
       {/* Hero Section */}
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent mb-4">
+        <h2 className="text-4xl font-bold text-slate-800 mb-4">
           Discover Quality Healthcare Providers
         </h2>
-        <p className="text-blue-700 text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
           Browse our comprehensive directory of hospitals and medical centers. Use the search below to find specific providers or services.
         </p>
       </div>
@@ -180,12 +180,12 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
       <div className="flex justify-between items-center">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-all duration-200 font-medium hover:scale-105 bg-blue-50 px-4 py-2 rounded-xl"
+          className="flex items-center space-x-2 text-slate-700 hover:text-blue-700 transition-all duration-200 font-medium hover:scale-105 bg-white/70 px-4 py-2 rounded-xl shadow-sm"
         >
           <Filter className="w-5 h-5" />
           <span>Advanced Filters</span>
         </button>
-        <div className="text-sm text-blue-600 font-medium bg-blue-50 px-4 py-2 rounded-xl">
+        <div className="text-sm text-slate-600 font-medium bg-white/70 px-4 py-2 rounded-xl shadow-sm">
           {isSearching ? `Found ${searchResults.length} results` : 'Showing all hospitals'}
         </div>
       </div>
@@ -196,7 +196,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-3">
               <Filter className="w-6 h-6 text-blue-600" />
-              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Filter Results</h3>
+              <h3 className="text-xl font-bold text-slate-800">Filter Results</h3>
               {getActiveFilterCount() > 0 && (
                 <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
                   {getActiveFilterCount()} active
@@ -206,7 +206,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
             {getActiveFilterCount() > 0 && (
               <button
                 onClick={clearAllFilters}
-                className="flex items-center space-x-2 text-blue-500 hover:text-red-600 transition-colors font-medium bg-blue-50 hover:bg-red-50 px-4 py-2 rounded-xl"
+                className="flex items-center space-x-2 text-slate-600 hover:text-red-600 transition-colors font-medium bg-white/70 hover:bg-red-50 px-4 py-2 rounded-xl shadow-sm"
               >
                 <X className="w-4 h-4" />
                 <span>Clear All</span>
@@ -217,7 +217,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Result Type Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Show Results
               </label>
               <select
@@ -233,7 +233,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
             {/* Location Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Location
               </label>
               <select
@@ -251,7 +251,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
             {/* Specialty Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Specialty
               </label>
               <select
@@ -269,7 +269,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
             {/* Hospital Type Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Hospital Type
               </label>
               <select
@@ -287,7 +287,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
             {/* Rating Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Min Rating
               </label>
               <select
@@ -310,7 +310,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
         <div className="mt-8 bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200 p-6 animate-slide-up">
           <div className="flex items-center space-x-3 mb-6">
             <Search className="w-6 h-6 text-blue-600" />
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Search Results</h3>
+            <h3 className="text-2xl font-bold text-slate-800">Search Results</h3>
             <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
               {displayResults.length} found
             </span>
@@ -340,7 +340,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                     
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <h4 className="text-lg font-bold text-blue-900 group-hover:text-blue-700 transition-colors">
+                        <h4 className="text-lg font-bold text-slate-800 group-hover:text-blue-700 transition-colors">
                           {result.name}
                         </h4>
                         <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
@@ -352,7 +352,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                         </span>
                       </div>
                       
-                      <p className="text-blue-700 text-sm mb-2 leading-relaxed">
+                      <p className="text-slate-600 text-sm mb-2 leading-relaxed">
                         {result.description}
                       </p>
                       
@@ -369,7 +369,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                         </div>
                       ) : (
                         <div className="flex items-center justify-between">
-                          <div className="text-sm text-blue-600">
+                          <div className="text-sm text-slate-600">
                             <span className="font-medium">{result.hospitalName}</span> • {result.category}
                           </div>
                           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-1 rounded-lg text-sm font-bold shadow-md">
@@ -388,7 +388,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                 <Search className="w-8 h-8 text-white" />
               </div>
               <h4 className="text-xl font-bold text-blue-900 mb-2">No Results Found</h4>
-              <p className="text-blue-700 mb-4">Try searching with different keywords or adjusting your filters</p>
+              <p className="text-slate-600 mb-4">Try searching with different keywords or adjusting your filters</p>
               {getActiveFilterCount() > 0 && (
                 <button
                   onClick={clearAllFilters}
@@ -408,7 +408,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Specialty Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-sm font-semibold text-slate-700 mb-3">
                 Specialty
               </label>
               <select
@@ -426,7 +426,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
             {/* Rating Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-sm font-semibold text-slate-700 mb-3">
                 Minimum Rating
               </label>
               <select
@@ -443,7 +443,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
             {/* Distance Filter */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-sm font-semibold text-slate-700 mb-3">
                 Distance
               </label>
               <select className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl">

@@ -71,25 +71,25 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
       <div className="p-6 space-y-4">
         {/* Header */}
         <div className="space-y-2">
-          <h3 className="text-xl font-bold text-gray-800 group-hover:text-slate-600 transition-colors duration-300 leading-tight">
+          <h3 className="text-xl font-bold text-slate-800 group-hover:text-blue-700 transition-colors duration-300 leading-tight">
             {name}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+            <span className="inline-block bg-white/80 text-slate-700 px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
               {type}
             </span>
             <div className="flex items-center space-x-1">
               <Star className="w-4 h-4 text-yellow-500 fill-current" />
-              <span className="font-bold text-gray-900">{rating}</span>
-              <span className="text-gray-500 text-sm">({reviewCount})</span>
+              <span className="font-bold text-slate-800">{rating}</span>
+              <span className="text-slate-500 text-sm">({reviewCount})</span>
             </div>
           </div>
         </div>
 
         {/* Location */}
-        <div className="flex items-start space-x-2 text-gray-600">
+        <div className="flex items-start space-x-2 text-slate-600">
           <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-500" />
-          <p className="text-sm font-medium leading-relaxed text-blue-700">
+          <p className="text-sm font-medium leading-relaxed text-slate-600">
             {address.split(',').slice(0, 2).join(', ')}
           </p>
         </div>
@@ -99,33 +99,33 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
           {specialties.slice(0, 2).map((specialty) => (
             <span
               key={specialty}
-              className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium border border-blue-200"
+              className="bg-white/70 text-slate-700 px-3 py-1 rounded-full text-xs font-medium border border-slate-200 shadow-sm"
             >
               {specialty}
             </span>
           ))}
           {specialties.length > 2 && (
-            <span className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium border border-indigo-200">
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium border border-blue-200 shadow-sm">
               +{specialties.length - 2} more
             </span>
           )}
         </div>
 
         {/* Actions */}
-        <div className="pt-4 border-t border-blue-100">
+        <div className="pt-4 border-t border-slate-200">
           <div className="flex space-x-3">
             <button
               onClick={handleViewServices}
-              className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-2xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl group-hover:scale-105"
+              className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 text-white py-3 px-4 rounded-2xl hover:from-slate-800 hover:to-slate-900 transition-all duration-300 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl group-hover:scale-105"
             >
               <span>View Details</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <a
               href={`tel:${phone}`}
-              className="flex items-center justify-center px-4 py-3 border-2 border-blue-200 rounded-2xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+              className="flex items-center justify-center px-4 py-3 border-2 border-slate-300 rounded-2xl hover:bg-white hover:border-slate-400 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
             >
-              <Phone className="w-4 h-4 text-blue-600" />
+              <Phone className="w-4 h-4 text-slate-600" />
             </a>
           </div>
         </div>
