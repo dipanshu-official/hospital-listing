@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 const HospitalModal = ({ hospital, isOpen, onClose, isFavorite, onToggleFavorite }) => {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('services');
   const [expandedService, setExpandedService] = useState(null);
 
   if (!isOpen) return null;
@@ -248,41 +248,49 @@ const HospitalModal = ({ hospital, isOpen, onClose, isFavorite, onToggleFavorite
               <div className="space-y-6">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Services & Pricing</h3>
-                  <p className="text-gray-600">Comprehensive medical services with transparent pricing</p>
+                  <p className="text-gray-600">Click on any service category below to view detailed pricing information</p>
                 </div>
 
-                {services.map((serviceCategory, categoryIndex) => (
+                <div className="space-y-4">
+                  {services.map((serviceCategory, categoryIndex) => (
                   <div key={serviceCategory.category} className="border border-gray-200 rounded-lg overflow-hidden">
                     <button
                       onClick={() => toggleServiceExpansion(categoryIndex)}
-                      className="w-full bg-gray-50 hover:bg-gray-100 px-6 py-4 flex items-center justify-between transition-colors"
+                      className="w-full bg-gradient-to-r from-medical-50 to-teal-50 hover:from-medical-100 hover:to-teal-100 px-6 py-4 flex items-center justify-between transition-all duration-200"
                     >
-                      <h4 className="text-lg font-semibold text-gray-900">{serviceCategory.category}</h4>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-medical-500 rounded-full"></div>
+                        <h4 className="text-lg font-semibold text-gray-900">{serviceCategory.category}</h4>
+                      </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600">{serviceCategory.items.length} services</span>
+                        <span className="text-sm text-medical-600 font-medium bg-white px-2 py-1 rounded-full">
+                          {serviceCategory.items.length} services
+                        </span>
                         {expandedService === categoryIndex ? (
-                          <ChevronUp className="w-5 h-5 text-gray-400" />
+                          <ChevronUp className="w-5 h-5 text-medical-600" />
                         ) : (
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
+                          <ChevronDown className="w-5 h-5 text-medical-600" />
                         )}
                       </div>
                     </button>
                     
                     {expandedService === categoryIndex && (
-                      <div className="bg-white">
+                      <div className="bg-white animate-slide-up">
                         {serviceCategory.items.map((service, serviceIndex) => (
                           <div 
                             key={serviceIndex} 
-                            className="px-6 py-4 border-t border-gray-100 hover:bg-gray-50 transition-colors"
+                            className="px-6 py-4 border-t border-gray-100 hover:bg-medical-25 transition-colors group"
                           >
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-between">
                               <div className="flex-1">
-                                <h5 className="font-semibold text-gray-900 mb-1">{service.name}</h5>
-                                <p className="text-gray-600 text-sm">{service.description}</p>
+                                <h5 className="font-semibold text-gray-900 mb-1 group-hover:text-medical-700 transition-colors">
+                                  {service.name}
+                                </h5>
+                                <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
                               </div>
-                              <div className="ml-4 text-right">
-                                <div className="text-xl font-bold text-medical-600">{service.price}</div>
-                                <div className="text-xs text-gray-500">Starting from</div>
+                              <div className="ml-6 text-right bg-medical-50 px-4 py-2 rounded-lg">
+                                <div className="text-xl font-bold text-medical-700">{service.price}</div>
+                                <div className="text-xs text-medical-600 font-medium">Starting from</div>
                               </div>
                             </div>
                           </div>
@@ -290,18 +298,23 @@ const HospitalModal = ({ hospital, isOpen, onClose, isFavorite, onToggleFavorite
                       </div>
                     )}
                   </div>
-                ))}
+                  ))}
+                </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <DollarSign className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-blue-900 mb-1">Pricing Information</h4>
-                      <p className="text-blue-800 text-sm">
+                      <h4 className="font-semibold text-blue-900 mb-2">Important Pricing Information</h4>
+                      <p className="text-blue-800 text-sm leading-relaxed">
                         Prices shown are estimates and may vary based on individual circumstances, insurance coverage, and specific treatment requirements. Please contact our billing department for detailed cost information.
                       </p>
+                      <div className="mt-3 flex items-center space-x-2">
+                        <Phone className="w-4 h-4 text-blue-600" />
+                        <span className="text-blue-700 font-medium text-sm">Call for exact pricing: {phone}</span>
+                      </div>
                     </div>
                   </div>
                 </div>

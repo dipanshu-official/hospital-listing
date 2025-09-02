@@ -136,9 +136,9 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite, onViewDetails })
         <div className="flex space-x-3">
           <button
             onClick={() => onViewDetails(hospital)}
-            className="flex-1 bg-medical-600 text-white py-2 px-4 rounded-lg hover:bg-medical-700 transition-colors font-medium text-sm"
+            className="flex-1 bg-medical-600 text-white py-2 px-4 rounded-lg hover:bg-medical-700 transition-colors font-medium text-sm flex items-center justify-center space-x-2"
           >
-            View Details & Pricing
+            <span>View Services & Pricing</span>
           </button>
           <a
             href={`tel:${phone}`}
