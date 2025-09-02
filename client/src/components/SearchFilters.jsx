@@ -136,7 +136,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
     <div className="glass-effect rounded-2xl shadow-xl border border-white/30 p-8 mb-8 animate-fade-in">
       {/* Hero Section */}
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold gradient-text mb-4">
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">
           Discover Quality Healthcare Providers
         </h2>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -154,7 +154,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
             placeholder="Search hospitals, doctors, services..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+            className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
           />
         </div>
 
@@ -166,12 +166,12 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
             placeholder="Enter city, state, or ZIP code"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+            className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg"
           />
         </div>
 
         {/* Search Button */}
-        <button className="bg-gradient-to-r from-medical-500 to-medical-600 text-white px-6 py-4 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105">
+        <button className="bg-gradient-to-r from-slate-500 to-slate-600 text-white px-6 py-4 rounded-xl hover:from-slate-600 hover:to-slate-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105">
           Search Hospitals
         </button>
       </div>
@@ -180,7 +180,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
       <div className="flex justify-between items-center">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center space-x-2 text-gray-500 hover:text-medical-600 transition-all duration-200 font-medium hover:scale-105"
+          className="flex items-center space-x-2 text-gray-500 hover:text-slate-600 transition-all duration-200 font-medium hover:scale-105"
         >
           <Filter className="w-5 h-5" />
           <span>Advanced Filters</span>
@@ -195,10 +195,10 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
         <div className="mt-8 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 animate-slide-up">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-3">
-              <Filter className="w-6 h-6 text-blue-600" />
+              <Filter className="w-6 h-6 text-slate-600" />
               <h3 className="text-xl font-bold text-gray-900">Filter Results</h3>
               {getActiveFilterCount() > 0 && (
-                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-semibold">
                   {getActiveFilterCount()} active
                 </span>
               )}
@@ -223,7 +223,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.resultType}
                 onChange={(e) => handleFilterChange('resultType', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 <option value="all">All Results</option>
                 <option value="hospitals">Hospitals Only</option>
@@ -239,7 +239,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.location}
                 onChange={(e) => handleFilterChange('location', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 {locations.map((loc) => (
                   <option key={loc} value={loc === 'All Locations' ? '' : loc}>
@@ -257,7 +257,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.specialty}
                 onChange={(e) => handleFilterChange('specialty', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 {specialties.map((spec) => (
                   <option key={spec} value={spec === 'All Specialties' ? '' : spec}>
@@ -275,7 +275,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.hospitalType}
                 onChange={(e) => handleFilterChange('hospitalType', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 {hospitalTypes.map((type) => (
                   <option key={type} value={type === 'All Types' ? '' : type}>
@@ -293,7 +293,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <select
                 value={activeFilters.rating}
                 onChange={(e) => handleFilterChange('rating', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm text-sm"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-300 focus:border-slate-400 transition-all duration-200 bg-white shadow-sm text-sm"
               >
                 <option value="">Any Rating</option>
                 <option value="4.5">4.5+ Stars</option>
@@ -328,8 +328,8 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                   <div className="flex items-start space-x-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-md ${
                       result.type === 'hospital' 
-                        ? 'bg-gradient-to-br from-blue-500 to-indigo-600' 
-                        : 'bg-gradient-to-br from-emerald-500 to-green-600'
+                        ? 'bg-gradient-to-br from-slate-400 to-slate-500' 
+                        : 'bg-gradient-to-br from-gray-400 to-gray-500'
                     }`}>
                       {result.type === 'hospital' ? (
                         <Building className="w-6 h-6 text-white" />
@@ -340,13 +340,13 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                     
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        <h4 className="text-lg font-bold text-gray-800 group-hover:text-slate-600 transition-colors">
                           {result.name}
                         </h4>
                         <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
                           result.type === 'hospital' 
-                            ? 'bg-blue-100 text-blue-700' 
-                            : 'bg-emerald-100 text-emerald-700'
+                            ? 'bg-slate-100 text-slate-600' 
+                            : 'bg-gray-100 text-gray-600'
                         }`}>
                           {result.type === 'hospital' ? 'Hospital' : 'Service'}
                         </span>
@@ -372,7 +372,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                           <div className="text-sm text-gray-500">
                             <span className="font-medium">{result.hospitalName}</span> • {result.category}
                           </div>
-                          <div className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-bold">
+                          <div className="bg-slate-500 text-white px-3 py-1 rounded-lg text-sm font-bold">
                             {result.price}
                           </div>
                         </div>
@@ -392,7 +392,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               {getActiveFilterCount() > 0 && (
                 <button
                   onClick={clearAllFilters}
-                  className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
+                  className="bg-gradient-to-r from-slate-500 to-slate-600 text-white px-6 py-3 rounded-xl hover:from-slate-600 hover:to-slate-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   Clear Filters
                 </button>

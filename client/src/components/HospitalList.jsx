@@ -20,7 +20,7 @@ const HospitalList = () => {
       {/* Results Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold gradient-text">Available Hospitals</h2>
+          <h2 className="text-3xl font-bold text-gray-800">Available Hospitals</h2>
           <p className="text-gray-600 mt-2 text-lg">Showing {mockHospitals.length} hospitals in your area</p>
         </div>
         <div className="text-sm text-gray-500 font-medium">
