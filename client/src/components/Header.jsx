@@ -7,44 +7,44 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <header className="glass-effect shadow-lg border-b border-white/20 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-medical-600 to-teal-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-medical-500 to-medical-600 rounded-xl flex items-center justify-center shadow-lg">
               <Heart className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">MediFind</h1>
-              <p className="text-xs text-gray-500 leading-none">Find Your Care</p>
+              <h1 className="text-xl font-bold gradient-text">MediFind</h1>
+              <p className="text-xs text-medical-600 leading-none font-medium">Find Your Care</p>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-medical-600 font-medium transition-colors">
+            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
               Find Hospitals
             </a>
-            <a href="#" className="text-gray-700 hover:text-medical-600 font-medium transition-colors">
+            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
               Specialties
             </a>
-            <a href="#" className="text-gray-700 hover:text-medical-600 font-medium transition-colors">
+            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
               About
             </a>
-            <a href="#" className="text-gray-700 hover:text-medical-600 font-medium transition-colors">
+            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
               Contact
             </a>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 text-gray-600 hover:text-medical-600 transition-colors">
+            <button className="p-2 text-gray-500 hover:text-error-500 transition-all duration-200 hover:scale-110">
               <Heart className="w-5 h-5" />
             </button>
             <button 
               onClick={() => navigate('/profile')}
-              className="bg-medical-600 text-white px-4 py-2 rounded-lg hover:bg-medical-700 transition-colors font-medium flex items-center space-x-2"
+              className="bg-gradient-to-r from-medical-500 to-medical-600 text-white px-6 py-2 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-medium flex items-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
             >
               <User className="w-4 h-4" />
               <span>Profile</span>

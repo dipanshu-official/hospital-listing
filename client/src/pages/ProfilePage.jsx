@@ -72,8 +72,8 @@ const ProfilePage = () => {
       </button>
 
       {/* Profile Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8">
-        <div className="relative h-32 bg-gradient-to-r from-medical-600 to-teal-600">
+      <div className="glass-effect rounded-2xl shadow-xl border border-white/30 overflow-hidden mb-8">
+        <div className="relative h-40 bg-gradient-to-r from-medical-500 to-medical-600">
           <div className="absolute inset-0 bg-black/10"></div>
         </div>
         
@@ -81,10 +81,10 @@ const ProfilePage = () => {
           {/* Profile Picture */}
           <div className="absolute -top-16 left-6">
             <div className="relative">
-              <div className="w-32 h-32 bg-white rounded-full border-4 border-white shadow-lg flex items-center justify-center">
-                <User className="w-16 h-16 text-gray-400" />
+              <div className="w-32 h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full border-4 border-white shadow-xl flex items-center justify-center">
+                <User className="w-16 h-16 text-gray-500" />
               </div>
-              <button className="absolute bottom-2 right-2 w-8 h-8 bg-medical-600 text-white rounded-full flex items-center justify-center hover:bg-medical-700 transition-colors">
+              <button className="absolute bottom-2 right-2 w-10 h-10 bg-gradient-to-br from-medical-500 to-medical-600 text-white rounded-full flex items-center justify-center hover:from-medical-600 hover:to-medical-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-110">
                 <Camera className="w-4 h-4" />
               </button>
             </div>
@@ -93,25 +93,25 @@ const ProfilePage = () => {
           {/* Profile Info */}
           <div className="pt-20 flex items-start justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-4xl font-bold gradient-text mb-3">
                 {profileData.firstName} {profileData.lastName}
               </h1>
-              <p className="text-gray-600 mb-1">{profileData.email}</p>
-              <div className="flex items-center space-x-4 text-sm text-gray-500">
+              <p className="text-gray-600 mb-2 text-lg">{profileData.email}</p>
+              <div className="flex items-center space-x-4 text-gray-500">
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
-                  <span>Member since {profileData.memberSince}</span>
+                  <span className="font-medium">Member since {profileData.memberSince}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Heart className="w-4 h-4" />
-                  <span>{favoriteHospitals.length} favorites</span>
+                  <span className="font-medium">{favoriteHospitals.length} favorites</span>
                 </div>
               </div>
             </div>
             
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="bg-medical-600 text-white px-4 py-2 rounded-lg hover:bg-medical-700 transition-colors font-medium flex items-center space-x-2"
+              className="bg-gradient-to-r from-medical-500 to-medical-600 text-white px-6 py-3 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
             >
               <Edit3 className="w-4 h-4" />
               <span>{isEditing ? 'Cancel' : 'Edit Profile'}</span>
@@ -121,23 +121,23 @@ const ProfilePage = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="glass-effect rounded-2xl shadow-xl border border-white/30 overflow-hidden">
         <div className="border-b border-gray-200">
-          <div className="flex space-x-8 px-6">
+          <div className="flex space-x-8 px-8">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-4 border-b-2 transition-colors ${
+                  className={`flex items-center space-x-2 py-5 border-b-2 transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'border-medical-600 text-medical-600'
-                      : 'border-transparent text-gray-600 hover:text-medical-600'
+                      ? 'border-medical-500 text-medical-600'
+                      : 'border-transparent text-gray-600 hover:text-medical-600 hover:scale-105'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
-                  <span className="font-medium">{tab.label}</span>
+                  <span className="font-semibold">{tab.label}</span>
                 </button>
               );
             })}
@@ -145,7 +145,7 @@ const ProfilePage = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="p-6">
+        <div className="p-8">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
             <div className="space-y-6">

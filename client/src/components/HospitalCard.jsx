@@ -34,9 +34,9 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
   };
 
   return (
-    <div className="hospital-card bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
+    <div className="hospital-card bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 overflow-hidden card-hover">
       {/* Hospital Image */}
-      <div className="relative h-48 bg-gradient-to-br from-medical-100 to-teal-100">
+      <div className="relative h-48 bg-gradient-to-br from-medical-100 to-medical-200">
         <img
           src={image}
           alt={name}
@@ -47,7 +47,7 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
         />
         <div className="absolute top-3 right-3 flex space-x-2">
           {isVerified && (
-            <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
+            <div className="bg-success-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 shadow-lg">
               <Award className="w-3 h-3" />
               <span>Verified</span>
             </div>
@@ -59,15 +59,15 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
             }}
             className={`p-2 rounded-full backdrop-blur-sm border transition-all ${
               isFavorite 
-                ? 'bg-red-500 text-white border-red-500' 
-                : 'bg-white/80 text-gray-600 border-white/50 hover:bg-red-50 hover:text-red-500'
+                ? 'bg-error-500 text-white border-error-500 shadow-lg' 
+                : 'bg-white/90 text-gray-600 border-white/50 hover:bg-error-50 hover:text-error-500 shadow-md'
             }`}
           >
             <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
         </div>
         {isOpen24h && (
-          <div className="absolute bottom-3 left-3 bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
+          <div className="absolute bottom-3 left-3 bg-success-500 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1 shadow-lg">
             <Clock className="w-4 h-4" />
             <span>24/7</span>
           </div>
@@ -78,10 +78,10 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
       <div className="p-6">
         {/* Header */}
         <div className="mb-4">
-          <h3 className="text-xl font-bold text-gray-900 mb-1 leading-tight">
+          <h3 className="text-xl font-bold text-gray-800 mb-1 leading-tight">
             {name}
           </h3>
-          <p className="text-medical-600 font-medium text-sm">{type}</p>
+          <p className="text-medical-500 font-semibold text-sm">{type}</p>
         </div>
 
         {/* Rating */}
@@ -90,9 +90,9 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${
+                className={`w-4 h-4 transition-colors ${
                   i < Math.floor(rating) 
-                    ? 'text-yellow-400 fill-current' 
+                    ? 'text-warning-400 fill-current' 
                     : 'text-gray-300'
                 }`}
               />
@@ -114,13 +114,13 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
             {specialties.slice(0, 3).map((specialty) => (
               <span
                 key={specialty}
-                className="bg-medical-50 text-medical-700 px-3 py-1 rounded-full text-xs font-medium"
+                className="bg-medical-100 text-medical-700 px-3 py-1 rounded-full text-xs font-semibold border border-medical-200"
               >
                 {specialty}
               </span>
             ))}
             {specialties.length > 3 && (
-              <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-medium">
+              <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-semibold border border-gray-200">
                 +{specialties.length - 3} more
               </span>
             )}
@@ -128,14 +128,14 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
         </div>
 
         {/* Stats */}
-        <div className="flex items-center justify-between mb-6 pt-4 border-t border-gray-100">
-          <div className="flex items-center space-x-1 text-gray-600">
+        <div className="flex items-center justify-between mb-6 pt-4 border-t border-gray-200">
+          <div className="flex items-center space-x-1 text-gray-500">
             <Users className="w-4 h-4" />
-            <span className="text-sm">{bedCount} beds</span>
+            <span className="text-sm font-medium">{bedCount} beds</span>
           </div>
-          <div className="flex items-center space-x-1 text-gray-600">
+          <div className="flex items-center space-x-1 text-gray-500">
             <Stethoscope className="w-4 h-4" />
-            <span className="text-sm">{specialties.length} specialties</span>
+            <span className="text-sm font-medium">{specialties.length} specialties</span>
           </div>
         </div>
 
@@ -143,13 +143,13 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
         <div className="flex space-x-3">
           <button
             onClick={handleViewServices}
-            className="flex-1 bg-medical-600 text-white py-2 px-4 rounded-lg hover:bg-medical-700 transition-colors font-medium text-sm flex items-center justify-center space-x-2"
+            className="flex-1 bg-gradient-to-r from-medical-500 to-medical-600 text-white py-3 px-4 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
           >
             <span>View Services & Pricing</span>
           </button>
           <a
             href={`tel:${phone}`}
-            className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
           >
             <Phone className="w-4 h-4" />
           </a>

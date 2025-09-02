@@ -72,9 +72,9 @@ const HospitalServicesPage = () => {
       </button>
 
       {/* Hospital Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+      <div className="glass-effect rounded-2xl shadow-xl border border-white/30 overflow-hidden mb-8">
         {/* Hero Image */}
-        <div className="relative h-64 bg-gradient-to-br from-medical-100 to-teal-100">
+        <div className="relative h-72 bg-gradient-to-br from-medical-100 to-medical-200">
           <img
             src={hospital.image}
             alt={hospital.name}
@@ -87,8 +87,8 @@ const HospitalServicesPage = () => {
             onClick={toggleFavorite}
             className={`absolute top-6 right-6 p-3 backdrop-blur-sm rounded-full border transition-all shadow-lg ${
               isFavorite 
-                ? 'bg-red-500 text-white border-red-500' 
-                : 'bg-white/90 text-gray-600 border-white/50 hover:bg-red-50 hover:text-red-500'
+                ? 'bg-error-500 text-white border-error-500' 
+                : 'bg-white/90 text-gray-600 border-white/50 hover:bg-error-50 hover:text-error-500'
             }`}
           >
             <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
@@ -97,19 +97,19 @@ const HospitalServicesPage = () => {
           {/* Title Overlay */}
           <div className="absolute bottom-6 left-6 text-white">
             <div className="flex items-center space-x-3 mb-2">
-              <h1 className="text-4xl font-bold">{hospital.name}</h1>
+              <h1 className="text-5xl font-bold drop-shadow-lg">{hospital.name}</h1>
               {hospital.isVerified && (
-                <div className="bg-green-500 p-2 rounded-full">
+                <div className="bg-success-500 p-3 rounded-full shadow-lg">
                   <Award className="w-6 h-6" />
                 </div>
               )}
             </div>
             <div className="flex items-center space-x-4">
-              <p className="text-white/90 font-medium text-lg">{hospital.type}</p>
+              <p className="text-white/90 font-semibold text-xl drop-shadow">{hospital.type}</p>
               <div className="flex items-center space-x-1">
-                <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                <span className="font-semibold">{hospital.rating}</span>
-                <span className="text-white/80">({hospital.reviewCount} reviews)</span>
+                <Star className="w-5 h-5 text-warning-400 fill-current drop-shadow" />
+                <span className="font-bold text-lg drop-shadow">{hospital.rating}</span>
+                <span className="text-white/90 drop-shadow">({hospital.reviewCount} reviews)</span>
               </div>
             </div>
           </div>
@@ -117,35 +117,43 @@ const HospitalServicesPage = () => {
 
         {/* Hospital Info */}
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Contact Info */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Contact Information</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-4">Contact Information</h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-gray-400" />
-                  <span className="text-gray-700">{hospital.address}</span>
+                  <div className="w-8 h-8 bg-medical-100 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-4 h-4 text-medical-600" />
+                  </div>
+                  <span className="text-gray-700 font-medium">{hospital.address}</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-gray-400" />
-                  <a href={`tel:${hospital.phone}`} className="text-medical-600 hover:text-medical-700 transition-colors">
+                  <div className="w-8 h-8 bg-medical-100 rounded-lg flex items-center justify-center">
+                    <Phone className="w-4 h-4 text-medical-600" />
+                  </div>
+                  <a href={`tel:${hospital.phone}`} className="text-medical-600 hover:text-medical-700 transition-colors font-medium">
                     {hospital.phone}
                   </a>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-gray-400" />
-                  <a href={`mailto:${hospital.email}`} className="text-medical-600 hover:text-medical-700 transition-colors">
+                  <div className="w-8 h-8 bg-medical-100 rounded-lg flex items-center justify-center">
+                    <Mail className="w-4 h-4 text-medical-600" />
+                  </div>
+                  <a href={`mailto:${hospital.email}`} className="text-medical-600 hover:text-medical-700 transition-colors font-medium">
                     {hospital.email}
                   </a>
                 </div>
                 {hospital.website && (
                   <div className="flex items-center space-x-3">
-                    <Globe className="w-5 h-5 text-gray-400" />
+                    <div className="w-8 h-8 bg-medical-100 rounded-lg flex items-center justify-center">
+                      <Globe className="w-4 h-4 text-medical-600" />
+                    </div>
                     <a 
                       href={hospital.website} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-medical-600 hover:text-medical-700 transition-colors"
+                      className="text-medical-600 hover:text-medical-700 transition-colors font-medium"
                     >
                       Visit Website
                     </a>
@@ -156,27 +164,27 @@ const HospitalServicesPage = () => {
 
             {/* Quick Stats */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Hospital Information</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-medical-50 rounded-lg">
-                  <Users className="w-6 h-6 text-medical-600 mx-auto mb-2" />
-                  <div className="font-bold text-lg">{hospital.bedCount}</div>
-                  <div className="text-sm text-gray-600">Beds</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-4">Hospital Information</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="text-center p-4 bg-gradient-to-br from-medical-50 to-medical-100 rounded-xl border border-medical-200 shadow-sm">
+                  <Users className="w-7 h-7 text-medical-600 mx-auto mb-2" />
+                  <div className="font-bold text-xl text-gray-800">{hospital.bedCount}</div>
+                  <div className="text-sm text-gray-600 font-medium">Beds</div>
                 </div>
-                <div className="text-center p-4 bg-teal-50 rounded-lg">
-                  <Stethoscope className="w-6 h-6 text-teal-600 mx-auto mb-2" />
-                  <div className="font-bold text-lg">{hospital.doctors}</div>
-                  <div className="text-sm text-gray-600">Doctors</div>
+                <div className="text-center p-4 bg-gradient-to-br from-success-50 to-success-100 rounded-xl border border-success-200 shadow-sm">
+                  <Stethoscope className="w-7 h-7 text-success-600 mx-auto mb-2" />
+                  <div className="font-bold text-xl text-gray-800">{hospital.doctors}</div>
+                  <div className="text-sm text-gray-600 font-medium">Doctors</div>
                 </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <Calendar className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                  <div className="font-bold text-lg">{hospital.established}</div>
-                  <div className="text-sm text-gray-600">Established</div>
+                <div className="text-center p-4 bg-gradient-to-br from-warning-50 to-warning-100 rounded-xl border border-warning-200 shadow-sm">
+                  <Calendar className="w-7 h-7 text-warning-600 mx-auto mb-2" />
+                  <div className="font-bold text-xl text-gray-800">{hospital.established}</div>
+                  <div className="text-sm text-gray-600 font-medium">Established</div>
                 </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <Clock className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-                  <div className="font-bold text-lg">{hospital.isOpen24h ? '24/7' : 'Limited'}</div>
-                  <div className="text-sm text-gray-600">Hours</div>
+                <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200 shadow-sm">
+                  <Clock className="w-7 h-7 text-purple-600 mx-auto mb-2" />
+                  <div className="font-bold text-xl text-gray-800">{hospital.isOpen24h ? '24/7' : 'Limited'}</div>
+                  <div className="text-sm text-gray-600 font-medium">Hours</div>
                 </div>
               </div>
             </div>
@@ -185,53 +193,53 @@ const HospitalServicesPage = () => {
       </div>
 
       {/* Services & Pricing Section */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div className="glass-effect rounded-2xl shadow-xl border border-white/30 p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">Services & Pricing</h2>
-          <p className="text-gray-600 text-lg">Comprehensive medical services with transparent pricing</p>
+          <h2 className="text-4xl font-bold gradient-text mb-4">Services & Pricing</h2>
+          <p className="text-gray-600 text-lg leading-relaxed">Comprehensive medical services with transparent pricing</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {hospital.services.map((serviceCategory, categoryIndex) => (
-            <div key={serviceCategory.category} className="border border-gray-200 rounded-xl overflow-hidden">
+            <div key={serviceCategory.category} className="bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
               <button
                 onClick={() => toggleServiceExpansion(categoryIndex)}
-                className="w-full bg-gradient-to-r from-medical-50 to-teal-50 hover:from-medical-100 hover:to-teal-100 px-6 py-5 flex items-center justify-between transition-all duration-200"
+                className="w-full bg-gradient-to-r from-medical-50 to-medical-100 hover:from-medical-100 hover:to-medical-200 px-8 py-6 flex items-center justify-between transition-all duration-300"
               >
                 <div className="flex items-center space-x-4">
-                  <div className="w-4 h-4 bg-medical-500 rounded-full"></div>
-                  <h3 className="text-xl font-semibold text-gray-900">{serviceCategory.category}</h3>
+                  <div className="w-5 h-5 bg-gradient-to-br from-medical-500 to-medical-600 rounded-full shadow-md"></div>
+                  <h3 className="text-2xl font-bold text-gray-800">{serviceCategory.category}</h3>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-sm text-medical-600 font-medium bg-white px-3 py-1 rounded-full">
+                  <span className="text-sm text-medical-700 font-semibold bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-medical-200 shadow-md">
                     {serviceCategory.items.length} services
                   </span>
                   {expandedService === categoryIndex ? (
-                    <ChevronUp className="w-6 h-6 text-medical-600" />
+                    <ChevronUp className="w-6 h-6 text-medical-700" />
                   ) : (
-                    <ChevronDown className="w-6 h-6 text-medical-600" />
+                    <ChevronDown className="w-6 h-6 text-medical-700" />
                   )}
                 </div>
               </button>
               
               {expandedService === categoryIndex && (
-                <div className="bg-white animate-slide-up">
+                <div className="bg-white/90 backdrop-blur-sm animate-slide-up">
                   {serviceCategory.items.map((service, serviceIndex) => (
                     <div 
                       key={serviceIndex} 
-                      className="px-6 py-5 border-t border-gray-100 hover:bg-medical-25 transition-colors group"
+                      className="px-8 py-6 border-t border-gray-100 hover:bg-medical-50/50 transition-all duration-200 group"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 mb-2 text-lg group-hover:text-medical-700 transition-colors">
+                          <h4 className="font-bold text-gray-800 mb-3 text-xl group-hover:text-medical-700 transition-colors">
                             {service.name}
                           </h4>
-                          <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                          <p className="text-gray-600 leading-relaxed text-base">{service.description}</p>
                         </div>
                         <div className="ml-8 text-right">
-                          <div className="bg-gradient-to-r from-medical-500 to-teal-500 text-white px-6 py-3 rounded-xl shadow-lg">
+                          <div className="bg-gradient-to-r from-medical-500 to-medical-600 text-white px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200">
                             <div className="text-2xl font-bold">{service.price}</div>
-                            <div className="text-xs opacity-90 font-medium">Starting from</div>
+                            <div className="text-xs opacity-90 font-semibold">Starting from</div>
                           </div>
                         </div>
                       </div>
@@ -244,24 +252,24 @@ const HospitalServicesPage = () => {
         </div>
 
         {/* Pricing Disclaimer */}
-        <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+        <div className="mt-8 bg-gradient-to-r from-medical-50 to-blue-50 border border-medical-200 rounded-2xl p-8 shadow-lg">
           <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-              <DollarSign className="w-5 h-5 text-white" />
+            <div className="w-12 h-12 bg-gradient-to-br from-medical-500 to-medical-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+              <DollarSign className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h4 className="font-semibold text-blue-900 mb-2 text-lg">Important Pricing Information</h4>
-              <p className="text-blue-800 leading-relaxed mb-4">
+              <h4 className="font-bold text-gray-800 mb-3 text-xl">Important Pricing Information</h4>
+              <p className="text-gray-700 leading-relaxed mb-4 text-base">
                 Prices shown are estimates and may vary based on individual circumstances, insurance coverage, and specific treatment requirements. Please contact our billing department for detailed cost information and insurance verification.
               </p>
               <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                 <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-blue-600" />
-                  <span className="text-blue-700 font-medium">Call for pricing: {hospital.phone}</span>
+                  <Phone className="w-4 h-4 text-medical-600" />
+                  <span className="text-medical-700 font-semibold">Call for pricing: {hospital.phone}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-blue-600" />
-                  <span className="text-blue-700 font-medium">Email: {hospital.email}</span>
+                  <Mail className="w-4 h-4 text-medical-600" />
+                  <span className="text-medical-700 font-semibold">Email: {hospital.email}</span>
                 </div>
               </div>
             </div>
@@ -269,19 +277,19 @@ const HospitalServicesPage = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-          <button className="flex-1 bg-medical-600 text-white py-4 px-6 rounded-xl hover:bg-medical-700 transition-colors font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
+        <div className="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <button className="flex-1 bg-gradient-to-r from-medical-500 to-medical-600 text-white py-4 px-6 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105">
             <Calendar className="w-5 h-5" />
             <span>Book Appointment</span>
           </button>
           <a
             href={`tel:${hospital.phone}`}
-            className="flex-1 bg-teal-600 text-white py-4 px-6 rounded-xl hover:bg-teal-700 transition-colors font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
+            className="flex-1 bg-gradient-to-r from-success-500 to-success-600 text-white py-4 px-6 rounded-xl hover:from-success-600 hover:to-success-700 transition-all duration-200 font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
           >
             <Phone className="w-5 h-5" />
             <span>Call Hospital</span>
           </a>
-          <button className="flex-1 bg-gray-600 text-white py-4 px-6 rounded-xl hover:bg-gray-700 transition-colors font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
+          <button className="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white py-4 px-6 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-200 font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105">
             <MapPin className="w-5 h-5" />
             <span>Get Directions</span>
           </button>

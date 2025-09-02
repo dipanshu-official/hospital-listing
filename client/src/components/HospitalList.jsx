@@ -20,16 +20,16 @@ const HospitalList = () => {
       {/* Results Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Available Hospitals</h2>
-          <p className="text-gray-600 mt-1">Showing {mockHospitals.length} hospitals in your area</p>
+          <h2 className="text-3xl font-bold gradient-text">Available Hospitals</h2>
+          <p className="text-gray-600 mt-2 text-lg">Showing {mockHospitals.length} hospitals in your area</p>
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-gray-500 font-medium">
           Updated just now
         </div>
       </div>
 
       {/* Hospital Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in">
         {mockHospitals.map((hospital) => (
           <HospitalCard
             key={hospital.id}

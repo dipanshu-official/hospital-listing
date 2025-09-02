@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-medical-50 to-blue-50">
       <Header />
       <main className="container mx-auto px-4 py-8 min-h-screen">
         <Routes>
