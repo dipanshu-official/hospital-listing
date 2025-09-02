@@ -4,11 +4,9 @@ import {
   Star, 
   MapPin, 
   Phone, 
-  Clock, 
   Heart, 
-  Stethoscope,
-  Users,
-  Award
+  Award,
+  ArrowRight
 } from 'lucide-react';
 
 const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
@@ -24,8 +22,6 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
     phone,
     image,
     specialties,
-    isOpen24h,
-    bedCount,
     isVerified
   } = hospital;
 
@@ -34,20 +30,23 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
   };
 
   return (
-    <div className="hospital-card bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 overflow-hidden card-hover">
+    <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-105 hover:-translate-y-2">
       {/* Hospital Image */}
-      <div className="relative h-48 bg-gradient-to-br from-medical-100 to-medical-200">
+      <div className="relative h-56 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           onError={(e) => {
             e.target.style.display = 'none';
           }}
         />
-        <div className="absolute top-3 right-3 flex space-x-2">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {/* Top Right Actions */}
+        <div className="absolute top-4 right-4 flex space-x-2">
           {isVerified && (
-            <div className="bg-success-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 shadow-lg">
+            <div className="bg-emerald-500 text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1 shadow-lg backdrop-blur-sm">
               <Award className="w-3 h-3" />
               <span>Verified</span>
             </div>
@@ -57,102 +56,78 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
               e.stopPropagation();
               onToggleFavorite(id);
             }}
-            className={`p-2 rounded-full backdrop-blur-sm border transition-all ${
+            className={`p-2.5 rounded-full backdrop-blur-sm border transition-all duration-300 ${
               isFavorite 
-                ? 'bg-error-500 text-white border-error-500 shadow-lg' 
-                : 'bg-white/90 text-gray-600 border-white/50 hover:bg-error-50 hover:text-error-500 shadow-md'
+                ? 'bg-red-500 text-white border-red-400 shadow-lg scale-110' 
+                : 'bg-white/90 text-gray-600 border-white/50 hover:bg-red-50 hover:text-red-500 shadow-md hover:scale-110'
             }`}
           >
             <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
         </div>
-        {isOpen24h && (
-          <div className="absolute bottom-3 left-3 bg-success-500 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1 shadow-lg">
-            <Clock className="w-4 h-4" />
-            <span>24/7</span>
-          </div>
-        )}
       </div>
 
-      {/* Hospital Info */}
-      <div className="p-6">
+      {/* Hospital Content */}
+      <div className="p-6 space-y-4">
         {/* Header */}
-        <div className="mb-4">
-          <h3 className="text-xl font-bold text-gray-800 mb-1 leading-tight">
+        <div className="space-y-2">
+          <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
             {name}
           </h3>
-          <p className="text-medical-500 font-semibold text-sm">{type}</p>
-        </div>
-
-        {/* Rating */}
-        <div className="flex items-center space-x-2 mb-4">
-          <div className="flex items-center space-x-1">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 transition-colors ${
-                  i < Math.floor(rating) 
-                    ? 'text-warning-400 fill-current' 
-                    : 'text-gray-300'
-                }`}
-              />
-            ))}
-          </div>
-          <span className="font-semibold text-gray-900">{rating}</span>
-          <span className="text-gray-500 text-sm">({reviewCount} reviews)</span>
-        </div>
-
-        {/* Address */}
-        <div className="flex items-start space-x-2 mb-4 text-gray-600">
-          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-          <p className="text-sm leading-relaxed">{address}</p>
-        </div>
-
-        {/* Specialties */}
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-2">
-            {specialties.slice(0, 3).map((specialty) => (
-              <span
-                key={specialty}
-                className="bg-medical-100 text-medical-700 px-3 py-1 rounded-full text-xs font-semibold border border-medical-200"
-              >
-                {specialty}
-              </span>
-            ))}
-            {specialties.length > 3 && (
-              <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-semibold border border-gray-200">
-                +{specialties.length - 3} more
-              </span>
-            )}
+          <div className="flex items-center justify-between">
+            <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+              {type}
+            </span>
+            <div className="flex items-center space-x-1">
+              <Star className="w-4 h-4 text-yellow-500 fill-current" />
+              <span className="font-bold text-gray-900">{rating}</span>
+              <span className="text-gray-500 text-sm">({reviewCount})</span>
+            </div>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="flex items-center justify-between mb-6 pt-4 border-t border-gray-200">
-          <div className="flex items-center space-x-1 text-gray-500">
-            <Users className="w-4 h-4" />
-            <span className="text-sm font-medium">{bedCount} beds</span>
-          </div>
-          <div className="flex items-center space-x-1 text-gray-500">
-            <Stethoscope className="w-4 h-4" />
-            <span className="text-sm font-medium">{specialties.length} specialties</span>
-          </div>
+        {/* Location */}
+        <div className="flex items-start space-x-2 text-gray-600">
+          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-500" />
+          <p className="text-sm font-medium leading-relaxed">
+            {address.split(',').slice(0, 2).join(', ')}
+          </p>
+        </div>
+
+        {/* Specialties - Show only top 2 */}
+        <div className="flex flex-wrap gap-2">
+          {specialties.slice(0, 2).map((specialty) => (
+            <span
+              key={specialty}
+              className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium border border-gray-200"
+            >
+              {specialty}
+            </span>
+          ))}
+          {specialties.length > 2 && (
+            <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium border border-blue-200">
+              +{specialties.length - 2} more
+            </span>
+          )}
         </div>
 
         {/* Actions */}
-        <div className="flex space-x-3">
-          <button
-            onClick={handleViewServices}
-            className="flex-1 bg-gradient-to-r from-medical-500 to-medical-600 text-white py-3 px-4 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
-          >
-            <span>View Services & Pricing</span>
-          </button>
-          <a
-            href={`tel:${phone}`}
-            className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
-          >
-            <Phone className="w-4 h-4" />
-          </a>
+        <div className="pt-4 border-t border-gray-100">
+          <div className="flex space-x-3">
+            <button
+              onClick={handleViewServices}
+              className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-2xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl group-hover:scale-105"
+            >
+              <span>View Details</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <a
+              href={`tel:${phone}`}
+              className="flex items-center justify-center px-4 py-3 border-2 border-gray-200 rounded-2xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+            >
+              <Phone className="w-4 h-4 text-blue-600" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
