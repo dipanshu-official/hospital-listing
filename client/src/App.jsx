@@ -4,6 +4,8 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import HospitalServicesPage from './pages/HospitalServicesPage';
 import ProfilePage from './pages/ProfilePage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import Footer from './components/Footer';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/hospital/:id/services" element={<HospitalServicesPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
       <Footer />

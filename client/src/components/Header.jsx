@@ -23,17 +23,26 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
+            <button 
+              onClick={() => navigate('/')}
+              className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105"
+            >
               Find Hospitals
-            </a>
+            </button>
+            <button 
+              onClick={() => navigate('/about')}
+              className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105"
+            >
+              About
+            </button>
+            <button 
+              onClick={() => navigate('/contact')}
+              className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105"
+            >
+              Contact
+            </button>
             <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
               Specialties
-            </a>
-            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
-              About
-            </a>
-            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
-              Contact
             </a>
           </nav>
 
@@ -64,17 +73,35 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 animate-slide-up">
             <nav className="flex flex-col space-y-3">
-              <a href="#" className="text-gray-700 hover:text-medical-600 font-medium py-2">
+              <button 
+                onClick={() => {
+                  navigate('/');
+                  setIsMenuOpen(false);
+                }}
+                className="text-left text-gray-700 hover:text-medical-600 font-medium py-2"
+              >
                 Find Hospitals
-              </a>
+              </button>
+              <button 
+                onClick={() => {
+                  navigate('/about');
+                  setIsMenuOpen(false);
+                }}
+                className="text-left text-gray-700 hover:text-medical-600 font-medium py-2"
+              >
+                About
+              </button>
+              <button 
+                onClick={() => {
+                  navigate('/contact');
+                  setIsMenuOpen(false);
+                }}
+                className="text-left text-gray-700 hover:text-medical-600 font-medium py-2"
+              >
+                Contact
+              </button>
               <a href="#" className="text-gray-700 hover:text-medical-600 font-medium py-2">
                 Specialties
-              </a>
-              <a href="#" className="text-gray-700 hover:text-medical-600 font-medium py-2">
-                About
-              </a>
-              <a href="#" className="text-gray-700 hover:text-medical-600 font-medium py-2">
-                Contact
               </a>
               <div className="pt-3 border-t border-gray-200">
                 <button 
