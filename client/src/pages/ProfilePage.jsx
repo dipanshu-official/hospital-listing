@@ -18,7 +18,15 @@ import {
   X,
   Camera,
   Clock,
-  Award
+  Award,
+  CheckCircle,
+  Building,
+  Activity,
+  FileText,
+  Lock,
+  Download,
+  Trash2,
+  UserX
 } from 'lucide-react';
 import { mockHospitals } from '../data/mockData';
 
@@ -38,106 +46,171 @@ const ProfilePage = () => {
     memberSince: '2023'
   });
 
-  // Mock favorite hospitals (in real app, this would come from user data)
+  // Mock favorite hospitals
   const favoriteHospitalIds = [1, 3, 5];
   const favoriteHospitals = mockHospitals.filter(hospital => 
     favoriteHospitalIds.includes(hospital.id)
   );
 
   const tabs = [
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'favorites', label: 'Favorites', icon: Heart },
-    { id: 'settings', label: 'Settings', icon: Settings }
+    { id: 'profile', label: 'Profile', icon: User, color: 'blue' },
+    { id: 'favorites', label: 'Favorites', icon: Heart, color: 'red' },
+    { id: 'settings', label: 'Settings', icon: Settings, color: 'purple' }
   ];
 
   const handleSaveProfile = () => {
     setIsEditing(false);
-    // In real app, save to backend
   };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    // Reset form data if needed
+  };
+
+  const getTabColorClasses = (color, isActive) => {
+    const colors = {
+      blue: isActive ? 'border-blue-500 text-blue-600 bg-blue-50' : 'border-transparent text-gray-600 hover:text-blue-600 hover:bg-blue-50',
+      red: isActive ? 'border-red-500 text-red-600 bg-red-50' : 'border-transparent text-gray-600 hover:text-red-600 hover:bg-red-50',
+      purple: isActive ? 'border-purple-500 text-purple-600 bg-purple-50' : 'border-transparent text-gray-600 hover:text-purple-600 hover:bg-purple-50'
+    };
+    return colors[color];
   };
 
   return (
-    <div className="max-w-6xl mx-auto animate-fade-in">
-      {/* Back Button */}
-      <button
-        onClick={() => navigate('/')}
-        className="flex items-center space-x-2 text-gray-600 hover:text-medical-600 transition-colors mb-6 group"
-      >
-        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-        <span className="font-medium">Back to Hospital List</span>
-      </button>
+    <div className="max-w-7xl mx-auto animate-fade-in space-y-8">
+      {/* Navigation Header */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-3 text-gray-600 hover:text-blue-600 transition-all duration-300 group bg-white/90 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl border border-white/50"
+        >
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          <span className="font-semibold text-lg">Back to Hospital Directory</span>
+        </button>
+        
+        <div className="flex items-center space-x-3 text-sm text-gray-500 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-lg border border-white/50">
+          <Activity className="w-4 h-4 text-emerald-500" />
+          <span className="font-medium">Account Active</span>
+        </div>
+      </div>
 
-      {/* Profile Header */}
-      <div className="glass-effect rounded-2xl shadow-xl border border-white/30 overflow-hidden mb-8">
-        <div className="relative h-40 bg-gradient-to-r from-medical-500 to-medical-600">
-          <div className="absolute inset-0 bg-black/10"></div>
+      {/* Profile Hero Section */}
+      <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        {/* Hero Background */}
+        <div className="relative h-64 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
         </div>
         
-        <div className="relative px-6 pb-6">
+        <div className="relative px-8 pb-8">
           {/* Profile Picture */}
-          <div className="absolute -top-16 left-6">
-            <div className="relative">
-              <div className="w-32 h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full border-4 border-white shadow-xl flex items-center justify-center">
-                <User className="w-16 h-16 text-gray-500" />
+          <div className="absolute -top-20 left-8">
+            <div className="relative group">
+              <div className="w-40 h-40 bg-gradient-to-br from-white to-gray-100 rounded-3xl border-4 border-white shadow-2xl flex items-center justify-center overflow-hidden">
+                <User className="w-20 h-20 text-gray-400" />
               </div>
-              <button className="absolute bottom-2 right-2 w-10 h-10 bg-gradient-to-br from-medical-500 to-medical-600 text-white rounded-full flex items-center justify-center hover:from-medical-600 hover:to-medical-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-110">
-                <Camera className="w-4 h-4" />
+              <button className="absolute bottom-3 right-3 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl flex items-center justify-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-110 group-hover:rotate-12">
+                <Camera className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          {/* Profile Info */}
-          <div className="pt-20 flex items-start justify-between">
-            <div>
-              <h1 className="text-4xl font-bold gradient-text mb-3">
-                {profileData.firstName} {profileData.lastName}
-              </h1>
-              <p className="text-gray-600 mb-2 text-lg">{profileData.email}</p>
-              <div className="flex items-center space-x-4 text-gray-500">
-                <div className="flex items-center space-x-1">
+          {/* Profile Information */}
+          <div className="pt-24 flex flex-col lg:flex-row lg:items-start lg:justify-between space-y-6 lg:space-y-0">
+            <div className="flex-1">
+              <div className="flex items-center space-x-4 mb-4">
+                <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                  {profileData.firstName} {profileData.lastName}
+                </h1>
+                <div className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-4 py-2 rounded-2xl text-sm font-bold shadow-lg">
+                  VERIFIED
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 mb-4">
+                <Mail className="w-5 h-5 text-gray-400" />
+                <span className="text-gray-600 text-lg">{profileData.email}</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-6 text-gray-500">
+                <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-xl">
                   <Calendar className="w-4 h-4" />
                   <span className="font-medium">Member since {profileData.memberSince}</span>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <Heart className="w-4 h-4" />
+                <div className="flex items-center space-x-2 bg-red-50 px-4 py-2 rounded-xl">
+                  <Heart className="w-4 h-4 text-red-500" />
                   <span className="font-medium">{favoriteHospitals.length} favorites</span>
+                </div>
+                <div className="flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-xl">
+                  <Shield className="w-4 h-4 text-blue-500" />
+                  <span className="font-medium">{profileData.insurance}</span>
                 </div>
               </div>
             </div>
             
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="bg-gradient-to-r from-medical-500 to-medical-600 text-white px-6 py-3 rounded-xl hover:from-medical-600 hover:to-medical-700 transition-all duration-200 font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
+              className={`px-8 py-4 rounded-2xl font-semibold flex items-center space-x-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 ${
+                isEditing 
+                  ? 'bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700' 
+                  : 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700'
+              }`}
             >
-              <Edit3 className="w-4 h-4" />
-              <span>{isEditing ? 'Cancel' : 'Edit Profile'}</span>
+              {isEditing ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
+              <span className="text-lg">{isEditing ? 'Cancel Edit' : 'Edit Profile'}</span>
             </button>
+          </div>
+        </div>
+
+        {/* Account Stats */}
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50 px-8 py-8 border-t border-gray-100">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <Heart className="w-8 h-8 text-white" />
+              </div>
+              <div className="font-bold text-3xl text-gray-900 mb-1">{favoriteHospitals.length}</div>
+              <div className="text-gray-600 font-medium">Favorite Hospitals</div>
+            </div>
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <Calendar className="w-8 h-8 text-white" />
+              </div>
+              <div className="font-bold text-3xl text-gray-900 mb-1">12</div>
+              <div className="text-gray-600 font-medium">Appointments</div>
+            </div>
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <Star className="w-8 h-8 text-white" />
+              </div>
+              <div className="font-bold text-3xl text-gray-900 mb-1">8</div>
+              <div className="text-gray-600 font-medium">Reviews Written</div>
+            </div>
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-500 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <div className="font-bold text-3xl text-gray-900 mb-1">2</div>
+              <div className="text-gray-600 font-medium">Years Active</div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="glass-effect rounded-2xl shadow-xl border border-white/30 overflow-hidden">
-        <div className="border-b border-gray-200">
-          <div className="flex space-x-8 px-8">
+      <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
+          <div className="flex space-x-2 px-8 py-2">
             {tabs.map((tab) => {
               const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-5 border-b-2 transition-all duration-200 ${
-                    activeTab === tab.id
-                      ? 'border-medical-500 text-medical-600'
-                      : 'border-transparent text-gray-600 hover:text-medical-600 hover:scale-105'
+                  className={`flex items-center space-x-3 py-4 px-6 rounded-2xl border-2 transition-all duration-300 font-semibold hover:scale-105 ${
+                    getTabColorClasses(tab.color, isActive)
                   }`}
                 >
                   <Icon className="w-5 h-5" />
-                  <span className="font-semibold">{tab.label}</span>
+                  <span className="text-lg">{tab.label}</span>
                 </button>
               );
             })}
@@ -148,27 +221,33 @@ const ProfilePage = () => {
         <div className="p-8">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
-            <div className="space-y-6">
+            <div className="space-y-8">
+              {/* Edit Mode Banner */}
               {isEditing && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 animate-slide-up">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <Edit3 className="w-5 h-5 text-blue-600" />
-                      <span className="font-medium text-blue-900">Edit Mode</span>
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        <Edit3 className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-blue-900 text-lg">Edit Mode Active</h3>
+                        <p className="text-blue-700">Make changes to your profile information</p>
+                      </div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-3">
                       <button
                         onClick={handleSaveProfile}
-                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center space-x-2"
+                        className="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-2xl hover:from-emerald-600 hover:to-green-700 transition-all duration-300 font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
                       >
-                        <Save className="w-4 h-4" />
+                        <Save className="w-5 h-5" />
                         <span>Save Changes</span>
                       </button>
                       <button
                         onClick={handleCancelEdit}
-                        className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors font-medium flex items-center space-x-2"
+                        className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-6 py-3 rounded-2xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-5 h-5" />
                         <span>Cancel</span>
                       </button>
                     </div>
@@ -176,88 +255,97 @@ const ProfilePage = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Personal Information */}
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Personal Information</h3>
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-200 shadow-lg">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      <User className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">Personal Information</h3>
+                  </div>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-3">First Name</label>
                         {isEditing ? (
                           <input
                             type="text"
                             value={profileData.firstName}
                             onChange={(e) => setProfileData({...profileData, firstName: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm"
                           />
                         ) : (
-                          <p className="text-gray-900 py-2">{profileData.firstName}</p>
+                          <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                            <span className="text-gray-900 font-semibold">{profileData.firstName}</span>
+                          </div>
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-3">Last Name</label>
                         {isEditing ? (
                           <input
                             type="text"
                             value={profileData.lastName}
                             onChange={(e) => setProfileData({...profileData, lastName: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm"
                           />
                         ) : (
-                          <p className="text-gray-900 py-2">{profileData.lastName}</p>
+                          <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                            <span className="text-gray-900 font-semibold">{profileData.lastName}</span>
+                          </div>
                         )}
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Email Address</label>
                       {isEditing ? (
                         <input
                           type="email"
                           value={profileData.email}
                           onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm"
                         />
                       ) : (
-                        <div className="flex items-center space-x-2 py-2">
-                          <Mail className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-900">{profileData.email}</span>
+                        <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm flex items-center space-x-3">
+                          <Mail className="w-5 h-5 text-blue-500" />
+                          <span className="text-gray-900 font-semibold">{profileData.email}</span>
                         </div>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Phone Number</label>
                       {isEditing ? (
                         <input
                           type="tel"
                           value={profileData.phone}
                           onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm"
                         />
                       ) : (
-                        <div className="flex items-center space-x-2 py-2">
-                          <Phone className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-900">{profileData.phone}</span>
+                        <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm flex items-center space-x-3">
+                          <Phone className="w-5 h-5 text-emerald-500" />
+                          <span className="text-gray-900 font-semibold">{profileData.phone}</span>
                         </div>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Date of Birth</label>
                       {isEditing ? (
                         <input
                           type="date"
                           value={profileData.dateOfBirth}
                           onChange={(e) => setProfileData({...profileData, dateOfBirth: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm"
                         />
                       ) : (
-                        <div className="flex items-center space-x-2 py-2">
-                          <Calendar className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-900">{new Date(profileData.dateOfBirth).toLocaleDateString()}</span>
+                        <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm flex items-center space-x-3">
+                          <Calendar className="w-5 h-5 text-purple-500" />
+                          <span className="text-gray-900 font-semibold">{new Date(profileData.dateOfBirth).toLocaleDateString()}</span>
                         </div>
                       )}
                     </div>
@@ -265,51 +353,56 @@ const ProfilePage = () => {
                 </div>
 
                 {/* Contact & Insurance */}
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Contact & Insurance</h3>
+                <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-3xl p-8 border border-emerald-200 shadow-lg">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">Contact & Insurance</h3>
+                  </div>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Home Address</label>
                       {isEditing ? (
                         <textarea
                           value={profileData.address}
                           onChange={(e) => setProfileData({...profileData, address: e.target.value})}
                           rows={3}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all duration-200 bg-white shadow-sm resize-none"
                         />
                       ) : (
-                        <div className="flex items-start space-x-2 py-2">
-                          <MapPin className="w-4 h-4 text-gray-400 mt-1" />
-                          <span className="text-gray-900">{profileData.address}</span>
+                        <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm flex items-start space-x-3">
+                          <MapPin className="w-5 h-5 text-emerald-500 mt-1" />
+                          <span className="text-gray-900 font-semibold leading-relaxed">{profileData.address}</span>
                         </div>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Emergency Contact</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Emergency Contact</label>
                       {isEditing ? (
                         <input
                           type="text"
                           value={profileData.emergencyContact}
                           onChange={(e) => setProfileData({...profileData, emergencyContact: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all duration-200 bg-white shadow-sm"
                         />
                       ) : (
-                        <div className="flex items-center space-x-2 py-2">
-                          <Phone className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-900">{profileData.emergencyContact}</span>
+                        <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm flex items-center space-x-3">
+                          <Phone className="w-5 h-5 text-red-500" />
+                          <span className="text-gray-900 font-semibold">{profileData.emergencyContact}</span>
                         </div>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Insurance Provider</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Insurance Provider</label>
                       {isEditing ? (
                         <select
                           value={profileData.insurance}
                           onChange={(e) => setProfileData({...profileData, insurance: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-500 focus:border-medical-500"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all duration-200 bg-white shadow-sm"
                         >
                           <option value="Blue Cross Blue Shield">Blue Cross Blue Shield</option>
                           <option value="Aetna">Aetna</option>
@@ -319,39 +412,12 @@ const ProfilePage = () => {
                           <option value="Medicaid">Medicaid</option>
                         </select>
                       ) : (
-                        <div className="flex items-center space-x-2 py-2">
-                          <Shield className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-900">{profileData.insurance}</span>
+                        <div className="bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm flex items-center space-x-3">
+                          <Shield className="w-5 h-5 text-blue-500" />
+                          <span className="text-gray-900 font-semibold">{profileData.insurance}</span>
                         </div>
                       )}
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Account Stats */}
-              <div className="bg-gradient-to-r from-medical-50 to-teal-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Summary</h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <Heart className="w-6 h-6 text-red-500 mx-auto mb-2" />
-                    <div className="font-bold text-lg">{favoriteHospitals.length}</div>
-                    <div className="text-sm text-gray-600">Favorite Hospitals</div>
-                  </div>
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <Calendar className="w-6 h-6 text-blue-500 mx-auto mb-2" />
-                    <div className="font-bold text-lg">12</div>
-                    <div className="text-sm text-gray-600">Appointments</div>
-                  </div>
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <Star className="w-6 h-6 text-yellow-500 mx-auto mb-2" />
-                    <div className="font-bold text-lg">8</div>
-                    <div className="text-sm text-gray-600">Reviews Written</div>
-                  </div>
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <Clock className="w-6 h-6 text-green-500 mx-auto mb-2" />
-                    <div className="font-bold text-lg">2</div>
-                    <div className="text-sm text-gray-600">Years Active</div>
                   </div>
                 </div>
               </div>
@@ -360,46 +426,70 @@ const ProfilePage = () => {
 
           {/* Favorites Tab */}
           {activeTab === 'favorites' && (
-            <div className="space-y-6">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Your Favorite Hospitals</h3>
-                <p className="text-gray-600">Quick access to your preferred healthcare providers</p>
+            <div className="space-y-8">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Heart className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-4xl font-bold text-gray-900 mb-3">Your Favorite Hospitals</h3>
+                <p className="text-gray-600 text-lg max-w-2xl mx-auto">Quick access to your preferred healthcare providers for faster booking and consultation</p>
               </div>
 
               {favoriteHospitals.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {favoriteHospitals.map((hospital) => (
-                    <div key={hospital.id} className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors">
-                      <div className="flex items-start space-x-4">
-                        <img
-                          src={hospital.image}
-                          alt={hospital.name}
-                          className="w-16 h-16 rounded-lg object-cover"
-                        />
+                    <div key={hospital.id} className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+                      <div className="flex items-start space-x-6">
+                        <div className="relative">
+                          <img
+                            src={hospital.image}
+                            alt={hospital.name}
+                            className="w-24 h-24 rounded-2xl object-cover shadow-lg group-hover:shadow-xl transition-all duration-300"
+                          />
+                          <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                            <Heart className="w-4 h-4 text-white fill-current" />
+                          </div>
+                        </div>
+                        
                         <div className="flex-1">
-                          <div className="flex items-start justify-between mb-2">
-                            <h4 className="font-semibold text-gray-900">{hospital.name}</h4>
-                            <Heart className="w-5 h-5 text-red-500 fill-current" />
+                          <div className="flex items-start justify-between mb-3">
+                            <h4 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{hospital.name}</h4>
+                            {hospital.isVerified && (
+                              <div className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-3 py-1 rounded-xl text-xs font-bold shadow-lg">
+                                <Award className="w-3 h-3 inline mr-1" />
+                                VERIFIED
+                              </div>
+                            )}
                           </div>
-                          <p className="text-sm text-medical-600 font-medium mb-1">{hospital.type}</p>
-                          <div className="flex items-center space-x-2 mb-2">
-                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                            <span className="text-sm font-medium">{hospital.rating}</span>
-                            <span className="text-sm text-gray-500">({hospital.reviewCount} reviews)</span>
+                          
+                          <div className="bg-gradient-to-r from-blue-100 to-indigo-100 px-4 py-2 rounded-xl mb-3 inline-block">
+                            <span className="text-blue-700 font-bold text-sm">{hospital.type}</span>
                           </div>
-                          <div className="flex items-center space-x-2 text-sm text-gray-600">
-                            <MapPin className="w-4 h-4" />
-                            <span>{hospital.address.split(',')[0]}</span>
+                          
+                          <div className="flex items-center space-x-3 mb-3">
+                            <div className="flex items-center space-x-1">
+                              <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                              <span className="font-bold text-lg text-gray-900">{hospital.rating}</span>
+                            </div>
+                            <span className="text-gray-500 font-medium">({hospital.reviewCount} reviews)</span>
                           </div>
-                          <div className="mt-3 flex space-x-2">
+                          
+                          <div className="flex items-center space-x-2 text-gray-600 mb-4">
+                            <MapPin className="w-4 h-4 text-emerald-500" />
+                            <span className="font-medium">{hospital.address.split(',')[0]}, {hospital.address.split(',')[1]}</span>
+                          </div>
+                          
+                          <div className="flex space-x-3">
                             <button
                               onClick={() => navigate(`/hospital/${hospital.id}/services`)}
-                              className="bg-medical-600 text-white px-3 py-1 rounded-lg hover:bg-medical-700 transition-colors text-sm font-medium"
+                              className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-105 flex items-center space-x-2"
                             >
-                              View Services
+                              <Building className="w-4 h-4" />
+                              <span>View Services</span>
                             </button>
-                            <button className="bg-gray-600 text-white px-3 py-1 rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium">
-                              Book Now
+                            <button className="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all duration-300 font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-105 flex items-center space-x-2">
+                              <Calendar className="w-4 h-4" />
+                              <span>Book Now</span>
                             </button>
                           </div>
                         </div>
@@ -408,13 +498,15 @@ const ProfilePage = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h4 className="text-lg font-medium text-gray-900 mb-2">No Favorites Yet</h4>
-                  <p className="text-gray-600 mb-4">Start adding hospitals to your favorites for quick access</p>
+                <div className="text-center py-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl border-2 border-dashed border-gray-300">
+                  <div className="w-24 h-24 bg-gradient-to-br from-gray-300 to-gray-400 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                    <Heart className="w-12 h-12 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-3">No Favorites Yet</h4>
+                  <p className="text-gray-600 mb-6 text-lg max-w-md mx-auto">Start adding hospitals to your favorites for quick access and personalized recommendations</p>
                   <button
                     onClick={() => navigate('/')}
-                    className="bg-medical-600 text-white px-6 py-3 rounded-lg hover:bg-medical-700 transition-colors font-medium"
+                    className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-2xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-xl hover:shadow-2xl hover:scale-105"
                   >
                     Browse Hospitals
                   </button>
@@ -425,87 +517,148 @@ const ProfilePage = () => {
 
           {/* Settings Tab */}
           {activeTab === 'settings' && (
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Account Settings</h3>
+            <div className="space-y-8">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Settings className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-4xl font-bold text-gray-900 mb-3">Account Settings</h3>
+                <p className="text-gray-600 text-lg">Manage your account preferences and security settings</p>
+              </div>
 
               {/* Notification Settings */}
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center space-x-2">
-                  <Bell className="w-5 h-5" />
-                  <span>Notification Preferences</span>
-                </h4>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-gray-900">Email Notifications</p>
-                      <p className="text-sm text-gray-600">Receive updates about appointments and health tips</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-medical-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-medical-600"></div>
-                    </label>
+              <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-3xl p-8 border border-purple-200 shadow-lg">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Bell className="w-6 h-6 text-white" />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-gray-900">SMS Notifications</p>
-                      <p className="text-sm text-gray-600">Get text reminders for appointments</p>
+                  <h4 className="text-2xl font-bold text-gray-900">Notification Preferences</h4>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="bg-white rounded-2xl p-6 shadow-sm border border-purple-100">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-gray-900 text-lg mb-1">Email Notifications</p>
+                        <p className="text-gray-600">Receive updates about appointments and health tips</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <div className="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-indigo-600 shadow-lg"></div>
+                      </label>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-medical-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-medical-600"></div>
-                    </label>
+                  </div>
+                  
+                  <div className="bg-white rounded-2xl p-6 shadow-sm border border-purple-100">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-gray-900 text-lg mb-1">SMS Notifications</p>
+                        <p className="text-gray-600">Get text reminders for appointments</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" />
+                        <div className="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-indigo-600 shadow-lg"></div>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Privacy Settings */}
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center space-x-2">
-                  <Shield className="w-5 h-5" />
-                  <span>Privacy & Security</span>
-                </h4>
+              {/* Privacy & Security */}
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-200 shadow-lg">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Shield className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900">Privacy & Security</h4>
+                </div>
+                
                 <div className="space-y-4">
-                  <button className="w-full text-left p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
+                  <button className="w-full bg-white rounded-2xl p-6 hover:bg-blue-50 transition-all duration-300 border border-blue-100 shadow-sm hover:shadow-lg group">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium text-gray-900">Change Password</p>
-                        <p className="text-sm text-gray-600">Update your account password</p>
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300">
+                          <Lock className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div className="text-left">
+                          <p className="font-bold text-gray-900 text-lg">Change Password</p>
+                          <p className="text-gray-600">Update your account password</p>
+                        </div>
                       </div>
-                      <ArrowLeft className="w-5 h-5 text-gray-400 rotate-180" />
+                      <ArrowLeft className="w-6 h-6 text-gray-400 rotate-180 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </button>
-                  <button className="w-full text-left p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
+                  
+                  <button className="w-full bg-white rounded-2xl p-6 hover:bg-blue-50 transition-all duration-300 border border-blue-100 shadow-sm hover:shadow-lg group">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium text-gray-900">Two-Factor Authentication</p>
-                        <p className="text-sm text-gray-600">Add an extra layer of security</p>
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-xl flex items-center justify-center group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all duration-300">
+                          <Shield className="w-6 h-6 text-emerald-600" />
+                        </div>
+                        <div className="text-left">
+                          <p className="font-bold text-gray-900 text-lg">Two-Factor Authentication</p>
+                          <p className="text-gray-600">Add an extra layer of security</p>
+                        </div>
                       </div>
-                      <ArrowLeft className="w-5 h-5 text-gray-400 rotate-180" />
+                      <ArrowLeft className="w-6 h-6 text-gray-400 rotate-180 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </button>
-                  <button className="w-full text-left p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-200">
+                  
+                  <button className="w-full bg-white rounded-2xl p-6 hover:bg-blue-50 transition-all duration-300 border border-blue-100 shadow-sm hover:shadow-lg group">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium text-gray-900">Download My Data</p>
-                        <p className="text-sm text-gray-600">Export your account information</p>
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300">
+                          <Download className="w-6 h-6 text-purple-600" />
+                        </div>
+                        <div className="text-left">
+                          <p className="font-bold text-gray-900 text-lg">Download My Data</p>
+                          <p className="text-gray-600">Export your account information</p>
+                        </div>
                       </div>
-                      <ArrowLeft className="w-5 h-5 text-gray-400 rotate-180" />
+                      <ArrowLeft className="w-6 h-6 text-gray-400 rotate-180 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </button>
                 </div>
               </div>
 
               {/* Account Actions */}
-              <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-red-900 mb-4">Account Actions</h4>
-                <div className="space-y-3">
-                  <button className="w-full text-left p-3 bg-white rounded-lg hover:bg-red-50 transition-colors border border-red-200 text-red-700">
-                    <p className="font-medium">Deactivate Account</p>
-                    <p className="text-sm text-red-600">Temporarily disable your account</p>
+              <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl p-8 border border-red-200 shadow-lg">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <UserX className="w-6 h-6 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-red-900">Danger Zone</h4>
+                </div>
+                
+                <div className="space-y-4">
+                  <button className="w-full bg-white rounded-2xl p-6 hover:bg-red-50 transition-all duration-300 border border-red-200 shadow-sm hover:shadow-lg group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center group-hover:from-orange-200 group-hover:to-orange-300 transition-all duration-300">
+                          <UserX className="w-6 h-6 text-orange-600" />
+                        </div>
+                        <div className="text-left">
+                          <p className="font-bold text-red-900 text-lg">Deactivate Account</p>
+                          <p className="text-red-700">Temporarily disable your account</p>
+                        </div>
+                      </div>
+                      <ArrowLeft className="w-6 h-6 text-red-400 rotate-180 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </button>
-                  <button className="w-full text-left p-3 bg-white rounded-lg hover:bg-red-50 transition-colors border border-red-200 text-red-700">
-                    <p className="font-medium">Delete Account</p>
-                    <p className="text-sm text-red-600">Permanently remove your account and data</p>
+                  
+                  <button className="w-full bg-white rounded-2xl p-6 hover:bg-red-50 transition-all duration-300 border border-red-200 shadow-sm hover:shadow-lg group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300">
+                          <Trash2 className="w-6 h-6 text-red-600" />
+                        </div>
+                        <div className="text-left">
+                          <p className="font-bold text-red-900 text-lg">Delete Account</p>
+                          <p className="text-red-700">Permanently remove your account and data</p>
+                        </div>
+                      </div>
+                      <ArrowLeft className="w-6 h-6 text-red-400 rotate-180 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </button>
                 </div>
               </div>
