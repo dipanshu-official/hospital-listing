@@ -27,7 +27,7 @@ import { mockHospitals } from '../data/mockData';
 const HospitalServicesPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [expandedService, setExpandedService] = useState(0); // Start with first category expanded
+  const [selectedCategory, setSelectedCategory] = useState(0); // Start with first category selected
   const [favorites, setFavorites] = useState(new Set([1, 3, 5]));
 
   const hospital = mockHospitals.find(h => h.id === parseInt(id));
@@ -49,10 +49,6 @@ const HospitalServicesPage = () => {
       </div>
     );
   }
-
-  const toggleServiceExpansion = (categoryIndex) => {
-    setExpandedService(expandedService === categoryIndex ? null : categoryIndex);
-  };
 
   const toggleFavorite = () => {
     const newFavorites = new Set(favorites);
@@ -227,81 +223,99 @@ const HospitalServicesPage = () => {
             </div>
             <h2 className="text-4xl font-bold mb-3">Medical Services & Pricing</h2>
             <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed">
-              Transparent pricing for all medical services. Click any category below to view detailed service information.
+              Browse our comprehensive medical services by category. Select a category from the navigation to view detailed pricing.
             </p>
           </div>
         </div>
 
-        {/* Services List */}
-        <div className="p-8 space-y-6">
-          {hospital.services.map((serviceCategory, categoryIndex) => (
-            <div key={serviceCategory.category} className="group">
-              {/* Category Header */}
-              <button
-                onClick={() => toggleServiceExpansion(categoryIndex)}
-                className="w-full bg-gradient-to-r from-gray-50 to-blue-50 hover:from-blue-50 hover:to-indigo-50 border border-gray-200 hover:border-blue-300 rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-lg"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                      <Stethoscope className="w-6 h-6 text-white" />
+        {/* Services Navigation & Content */}
+        <div className="flex">
+          {/* Services Navigation */}
+          <div className="w-80 bg-gradient-to-b from-gray-50 to-blue-50 border-r border-gray-200">
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                <Stethoscope className="w-5 h-5 text-blue-600" />
+                <span>Service Categories</span>
+              </h3>
+              <div className="space-y-2">
+                {hospital.services.map((serviceCategory, categoryIndex) => (
+                  <button
+                    key={serviceCategory.category}
+                    onClick={() => setSelectedCategory(categoryIndex)}
+                    className={`w-full text-left p-4 rounded-xl transition-all duration-200 border ${
+                      selectedCategory === categoryIndex
+                        ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-blue-500 shadow-lg'
+                        : 'bg-white hover:bg-blue-50 text-gray-700 hover:text-blue-600 border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-semibold text-base mb-1">{serviceCategory.category}</h4>
+                        <p className={`text-sm ${
+                          selectedCategory === categoryIndex ? 'text-blue-100' : 'text-gray-500'
+                        }`}>
+                          {serviceCategory.items.length} services
+                        </p>
+                      </div>
+                      <div className={`w-2 h-2 rounded-full ${
+                        selectedCategory === categoryIndex ? 'bg-white' : 'bg-blue-500'
+                      }`}></div>
                     </div>
-                    <div className="text-left">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-1">{serviceCategory.category}</h3>
-                      <p className="text-blue-600 font-medium">{serviceCategory.items.length} available services</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-semibold text-sm">
-                      {expandedService === categoryIndex ? 'Hide Services' : 'View Services'}
-                    </div>
-                    {expandedService === categoryIndex ? (
-                      <ChevronUp className="w-6 h-6 text-blue-600" />
-                    ) : (
-                      <ChevronDown className="w-6 h-6 text-blue-600" />
-                    )}
-                  </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Selected Category Services */}
+          <div className="flex-1 p-8">
+            {hospital.services[selectedCategory] && (
+              <div className="space-y-6">
+                {/* Category Header */}
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                    {hospital.services[selectedCategory].category}
+                  </h3>
+                  <p className="text-gray-600 text-lg">
+                    {hospital.services[selectedCategory].items.length} available services in this category
+                  </p>
                 </div>
-              </button>
-              
-              {/* Expanded Services */}
-              {expandedService === categoryIndex && (
-                <div className="mt-4 bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-200 overflow-hidden shadow-lg animate-slide-up">
-                  {serviceCategory.items.map((service, serviceIndex) => (
+
+                {/* Services Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {hospital.services[selectedCategory].items.map((service, serviceIndex) => (
                     <div 
                       key={serviceIndex} 
-                      className="px-8 py-6 border-b border-gray-100 last:border-b-0 hover:bg-blue-50/50 transition-all duration-200 group/item"
+                      className="bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1 pr-6">
-                          <div className="flex items-start space-x-4">
-                            <div className="w-3 h-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full mt-2 flex-shrink-0"></div>
-                            <div>
-                              <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover/item:text-blue-700 transition-colors">
-                                {service.name}
-                              </h4>
-                              <p className="text-gray-600 leading-relaxed text-base mb-3">{service.description}</p>
-                              <div className="flex items-center space-x-4 text-sm">
-                                <div className="flex items-center space-x-1 text-emerald-600">
-                                  <CheckCircle className="w-4 h-4" />
-                                  <span className="font-medium">Available</span>
-                                </div>
-                                <div className="flex items-center space-x-1 text-blue-600">
-                                  <Calendar className="w-4 h-4" />
-                                  <span className="font-medium">Book Online</span>
-                                </div>
+                      <div className="space-y-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                              {service.name}
+                            </h4>
+                            <p className="text-gray-600 leading-relaxed mb-4">{service.description}</p>
+                            
+                            <div className="flex items-center space-x-4 text-sm">
+                              <div className="flex items-center space-x-1 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                                <CheckCircle className="w-4 h-4" />
+                                <span className="font-medium">Available</span>
+                              </div>
+                              <div className="flex items-center space-x-1 text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                <Calendar className="w-4 h-4" />
+                                <span className="font-medium">Book Online</span>
                               </div>
                             </div>
                           </div>
                         </div>
                         
-                        {/* Price Display */}
-                        <div className="text-right">
-                          <div className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
-                            <div className="text-2xl font-bold mb-1">{service.price}</div>
-                            <div className="text-blue-100 text-sm font-medium">Starting Price</div>
+                        {/* Price and Action */}
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg">
+                            <div className="text-xl font-bold">{service.price}</div>
+                            <div className="text-blue-100 text-xs font-medium">Starting from</div>
                           </div>
-                          <button className="mt-3 bg-white border border-blue-200 text-blue-600 px-4 py-2 rounded-xl hover:bg-blue-50 transition-all duration-200 font-medium text-sm shadow-sm hover:shadow-md">
+                          <button className="bg-white border-2 border-blue-200 text-blue-600 px-6 py-3 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 font-semibold shadow-sm hover:shadow-md hover:scale-105">
                             Get Quote
                           </button>
                         </div>
@@ -309,9 +323,9 @@ const HospitalServicesPage = () => {
                     </div>
                   ))}
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Pricing Information */}
