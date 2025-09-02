@@ -446,7 +446,6 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
               <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Distance
               </label>
-              <select className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-medical-400 focus:border-medical-400 transition-all duration-200 bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg">
               <select className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl">
                 <option value="">Any Distance</option>
                 <option value="5">Within 5 miles</option>
