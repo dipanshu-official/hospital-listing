@@ -13,12 +13,12 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="w-12 h-12 bg-gradient-to-br from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
               <Heart className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">HealthHub</h1>
-              <p className="text-xs text-blue-600 leading-none font-medium">Your Healthcare Directory</p>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent">HealthHub</h1>
+              <p className="text-xs text-slate-500 leading-none font-medium">Your Healthcare Directory</p>
             </div>
           </div>
 
@@ -26,30 +26,30 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <button 
               onClick={() => navigate('/')}
-              className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105"
+              className="text-gray-500 hover:text-slate-600 font-medium transition-all duration-200 hover:scale-105"
             >
               Find Hospitals
             </button>
             <button 
               onClick={() => navigate('/about')}
-              className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105"
+              className="text-gray-500 hover:text-slate-600 font-medium transition-all duration-200 hover:scale-105"
             >
               About
             </button>
             <button 
               onClick={() => navigate('/contact')}
-              className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105"
+              className="text-gray-500 hover:text-slate-600 font-medium transition-all duration-200 hover:scale-105"
             >
               Contact
             </button>
-            <a href="#" className="text-gray-600 hover:text-medical-600 font-medium transition-all duration-200 hover:scale-105">
+            <a href="#" className="text-gray-500 hover:text-slate-600 font-medium transition-all duration-200 hover:scale-105">
               Specialties
             </a>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-3 text-gray-500 hover:text-red-500 transition-all duration-200 hover:scale-110 bg-white/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg">
+            <button className="p-3 text-gray-400 hover:text-slate-500 transition-all duration-200 hover:scale-110 bg-white/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg">
               <Bell className="w-5 h-5" />
             </button>
             
@@ -59,7 +59,7 @@ const Header = () => {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-2xl hover:bg-white transition-all duration-200 shadow-lg hover:shadow-xl border border-white/50 group"
               >
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
+                <div className="w-10 h-10 bg-gradient-to-br from-slate-400 to-slate-500 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200">
                   <User className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-left">
@@ -74,7 +74,7 @@ const Header = () => {
                 <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50 animate-slide-up">
                   <div className="px-4 py-3 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                      <div className="w-12 h-12 bg-gradient-to-br from-slate-400 to-slate-500 rounded-xl flex items-center justify-center shadow-lg">
                         <User className="w-6 h-6 text-white" />
                       </div>
                       <div>
@@ -89,7 +89,7 @@ const Header = () => {
                         navigate('/profile');
                         setIsProfileOpen(false);
                       }}
-                      className="w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors flex items-center space-x-3 text-gray-700 hover:text-blue-600"
+                      className="w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors flex items-center space-x-3 text-gray-700 hover:text-slate-600"
                     >
                       <User className="w-4 h-4" />
                       <span className="font-medium">View Profile</span>
@@ -98,7 +98,7 @@ const Header = () => {
                       onClick={() => {
                         setIsProfileOpen(false);
                       }}
-                      className="w-full text-left px-4 py-3 hover:bg-red-50 transition-colors flex items-center space-x-3 text-gray-700 hover:text-red-600"
+                      className="w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors flex items-center space-x-3 text-gray-700 hover:text-slate-500"
                     >
                       <Heart className="w-4 h-4" />
                       <span className="font-medium">My Favorites</span>
@@ -129,7 +129,7 @@ const Header = () => {
             {/* Mobile Profile Section */}
             <div className="px-4 py-4 border-b border-gray-200 mb-4">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-12 h-12 bg-gradient-to-br from-slate-400 to-slate-500 rounded-xl flex items-center justify-center shadow-lg">
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -145,7 +145,7 @@ const Header = () => {
                   navigate('/');
                   setIsMenuOpen(false);
                 }}
-                className="text-left text-gray-700 hover:text-blue-600 font-medium py-2"
+                className="text-left text-gray-600 hover:text-slate-600 font-medium py-2"
               >
                 Find Hospitals
               </button>
@@ -154,7 +154,7 @@ const Header = () => {
                   navigate('/about');
                   setIsMenuOpen(false);
                 }}
-                className="text-left text-gray-700 hover:text-blue-600 font-medium py-2"
+                className="text-left text-gray-600 hover:text-slate-600 font-medium py-2"
               >
                 About
               </button>
@@ -163,11 +163,11 @@ const Header = () => {
                   navigate('/contact');
                   setIsMenuOpen(false);
                 }}
-                className="text-left text-gray-700 hover:text-blue-600 font-medium py-2"
+                className="text-left text-gray-600 hover:text-slate-600 font-medium py-2"
               >
                 Contact
               </button>
-              <a href="#" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+              <a href="#" className="text-gray-600 hover:text-slate-600 font-medium py-2">
                 Specialties
               </a>
               <div className="pt-3 border-t border-gray-200 space-y-2">
@@ -176,7 +176,7 @@ const Header = () => {
                     navigate('/profile');
                     setIsMenuOpen(false);
                   }}
-                  className="w-full bg-blue-600 text-white px-4 py-3 rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2 shadow-lg"
+                  className="w-full bg-slate-500 text-white px-4 py-3 rounded-xl hover:bg-slate-600 transition-colors font-medium flex items-center justify-center space-x-2 shadow-lg"
                 >
                   <User className="w-4 h-4" />
                   <span>View Profile</span>
