@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Star, 
   MapPin, 
@@ -10,7 +11,9 @@ import {
   Award
 } from 'lucide-react';
 
-const HospitalCard = ({ hospital, isFavorite, onToggleFavorite, onViewDetails }) => {
+const HospitalCard = ({ hospital, isFavorite, onToggleFavorite }) => {
+  const navigate = useNavigate();
+
   const {
     id,
     name,
@@ -25,6 +28,10 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite, onViewDetails })
     bedCount,
     isVerified
   } = hospital;
+
+  const handleViewServices = () => {
+    navigate(`/hospital/${id}/services`);
+  };
 
   return (
     <div className="hospital-card bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
@@ -135,7 +142,7 @@ const HospitalCard = ({ hospital, isFavorite, onToggleFavorite, onViewDetails })
         {/* Actions */}
         <div className="flex space-x-3">
           <button
-            onClick={() => onViewDetails(hospital)}
+            onClick={handleViewServices}
             className="flex-1 bg-medical-600 text-white py-2 px-4 rounded-lg hover:bg-medical-700 transition-colors font-medium text-sm flex items-center justify-center space-x-2"
           >
             <span>View Services & Pricing</span>

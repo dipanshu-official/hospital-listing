@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import HospitalCard from './HospitalCard';
-import HospitalModal from './HospitalModal';
 import { mockHospitals } from '../data/mockData';
 
 const HospitalList = () => {
-  const [selectedHospital, setSelectedHospital] = useState(null);
   const [favorites, setFavorites] = useState(new Set());
 
   const toggleFavorite = (hospitalId) => {
@@ -38,21 +36,9 @@ const HospitalList = () => {
             hospital={hospital}
             isFavorite={favorites.has(hospital.id)}
             onToggleFavorite={toggleFavorite}
-            onViewDetails={setSelectedHospital}
           />
         ))}
       </div>
-
-      {/* Hospital Detail Modal */}
-      {selectedHospital && (
-        <HospitalModal
-          hospital={selectedHospital}
-          isOpen={!!selectedHospital}
-          onClose={() => setSelectedHospital(null)}
-          isFavorite={favorites.has(selectedHospital.id)}
-          onToggleFavorite={toggleFavorite}
-        />
-      )}
     </div>
   );
 };
