@@ -163,6 +163,8 @@ const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory 
         return 'Search pharmacies, medications, supplies...';
       case 'services':
         return 'Search healthcare services, home care...';
+      case 'all':
+        return 'Search hospitals, pharmacies, services, medications...';
       default:
         return 'Search healthcare providers...';
     }
@@ -176,6 +178,8 @@ const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory 
         return 'Find Trusted Pharmacies & Medical Stores';
       case 'services':
         return 'Explore Healthcare Services';
+      case 'all':
+        return 'Search All Healthcare Providers';
       default:
         return 'Discover Quality Healthcare Providers';
     }
@@ -189,6 +193,8 @@ const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory 
         return 'Find pharmacies, medical supply stores, and healthcare products. Search for medications, equipment, and health supplies.';
       case 'services':
         return 'Discover home healthcare, mobile services, and specialized medical support. Find services that come to you.';
+      case 'all':
+        return 'Search across all healthcare providers including hospitals, pharmacies, and services. Find exactly what you need.';
       default:
         return 'Browse our comprehensive directory of healthcare providers.';
     }

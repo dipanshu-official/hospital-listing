@@ -2,10 +2,169 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Building, Pill, Stethoscope, Heart, ArrowRight, Star, Users, Award } from 'lucide-react';
+import SearchFilters from '../components/SearchFilters';
+import { mockHospitals, mockMedicalStores, mockServices } from '../data/mockData';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm.trim()) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true);
+    const results = [];
+
+    // Search hospitals
+    mockHospitals.forEach(hospital => {
+      if (
+        hospital.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        hospital.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        hospital.specialties.some(specialty => 
+          specialty.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        hospital.address.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        results.push({
+          type: 'hospital',
+          id: hospital.id,
+          name: hospital.name,
+          description: hospital.description,
+          rating: hospital.rating,
+          location: `${hospital.address.split(',')[1]}, ${hospital.address.split(',')[2]}`,
+          hospitalId: hospital.id,
+          hospitalType: hospital.type
+        });
+      }
+
+      // Search services within each hospital
+      hospital.services.forEach(serviceCategory => {
+        serviceCategory.items.forEach(service => {
+          if (
+            service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            serviceCategory.category.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            results.push({
+              type: 'service',
+              id: `${hospital.id}-${service.name}`,
+              name: service.name,
+              description: service.description,
+              price: service.price,
+              category: serviceCategory.category,
+              hospitalName: hospital.name,
+              hospitalId: hospital.id,
+              location: `${hospital.address.split(',')[1]}, ${hospital.address.split(',')[2]}`,
+              hospitalType: hospital.type
+            });
+          }
+        });
+      });
+    });
+
+    // Search medical stores
+    mockMedicalStores.forEach(store => {
+      if (
+        store.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        store.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        store.services.some(service => 
+          service.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        store.address.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        results.push({
+          type: 'medical-store',
+          id: store.id,
+          name: store.name,
+          description: store.description,
+          rating: store.rating,
+          location: `${store.address.split(',')[1]}, ${store.address.split(',')[2]}`,
+          storeId: store.id,
+          storeType: store.type
+        });
+      }
+
+      // Search products within each store
+      store.products.forEach(productCategory => {
+        productCategory.items.forEach(product => {
+          if (
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            productCategory.category.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            results.push({
+              type: 'product',
+              id: `${store.id}-${product.name}`,
+              name: product.name,
+              description: product.description,
+              price: product.price,
+              category: productCategory.category,
+              storeName: store.name,
+              storeId: store.id,
+              location: `${store.address.split(',')[1]}, ${store.address.split(',')[2]}`,
+              storeType: store.type
+            });
+          }
+        });
+      });
+    });
+
+    // Search healthcare services
+    mockServices.forEach(service => {
+      if (
+        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.specialties.some(specialty => 
+          specialty.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        service.address.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        results.push({
+          type: 'healthcare-service',
+          id: service.id,
+          name: service.name,
+          description: service.description,
+          rating: service.rating,
+          location: service.address,
+          serviceId: service.id,
+          serviceType: service.type
+        });
+      }
+
+      // Search service offerings within each service
+      if (service.serviceOfferings) {
+        service.serviceOfferings.forEach(serviceCategory => {
+          serviceCategory.items.forEach(offering => {
+            if (
+              offering.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              offering.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              serviceCategory.category.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              results.push({
+                type: 'service-offering',
+                id: `${service.id}-${offering.name}`,
+                name: offering.name,
+                description: offering.description,
+                price: offering.price,
+                category: serviceCategory.category,
+                serviceName: service.name,
+                serviceId: service.id,
+                location: service.address,
+                serviceType: service.type
+              });
+            }
+          });
+        });
+      }
+    });
+
+    setSearchResults(results);
+  };
   const categories = [
     {
       id: 'hospitals',
@@ -60,22 +219,49 @@ const HomePage = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-12 animate-fade-in">
       {/* Hero Section */}
-      <div className="text-center space-y-8">
-        <div className="space-y-6">
-          <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto shadow-2xl">
-            <Heart className="w-12 h-12 text-white" />
+      <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        {/* Background Image */}
+        <div className="relative h-96 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+            style={{
+              backgroundImage: 'url(https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=1200)'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.1%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%224%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+          
+          <div className="relative h-full flex items-center justify-center text-center text-white px-8">
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto shadow-2xl">
+                  <Heart className="w-12 h-12 text-white" />
+                </div>
+                <h1 className="text-6xl font-bold drop-shadow-lg leading-tight">
+                  Find Quality Healthcare
+                </h1>
+                <p className="text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed drop-shadow">
+                  Your comprehensive directory for hospitals, pharmacies, and healthcare services. 
+                  Discover quality care with transparent pricing and verified providers.
+                </p>
+              </div>
+            </div>
           </div>
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent leading-tight">
-            Find Quality Healthcare
-          </h1>
-          <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-            Your comprehensive directory for hospitals, pharmacies, and healthcare services. 
-            Discover quality care with transparent pricing and verified providers.
-          </p>
         </div>
+      </div>
 
+      {/* Search Section */}
+      <SearchFilters 
+        onSearch={handleSearch}
+        searchResults={searchResults}
+        isSearching={isSearching}
+        selectedCategory="all"
+      />
+
+      {/* Stats Section */}
+      <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8">
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -92,7 +278,7 @@ const HomePage = () => {
       </div>
 
       {/* Categories Section */}
-      <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8">
+      <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8" id="categories">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-slate-800 mb-4">
             Choose Healthcare Category
