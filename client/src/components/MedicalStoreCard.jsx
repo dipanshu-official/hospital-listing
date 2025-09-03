@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { 
   Star, 
   MapPin, 
@@ -30,9 +31,24 @@ const MedicalStoreCard = ({ store, isFavorite, onToggleFavorite }) => {
   } = store;
 
   const handleViewDetails = () => {
+    toast.success(`Opening ${name} products page`);
     navigate(`/medical-store/${id}/products`);
   };
 
+  const handleToggleFavorite = (e) => {
+    e.stopPropagation();
+    onToggleFavorite(id);
+    if (isFavorite) {
+      toast.error(`Removed ${name} from favorites`);
+    } else {
+      toast.success(`Added ${name} to favorites`);
+    }
+  };
+
+  const handleCallStore = (e) => {
+    e.stopPropagation();
+    toast.success(`Calling ${name}...`);
+  };
   return (
     <div className="group bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-emerald-200/50 hover:scale-105 hover:-translate-y-2">
       {/* Store Image */}
@@ -62,10 +78,7 @@ const MedicalStoreCard = ({ store, isFavorite, onToggleFavorite }) => {
             </div>
           )}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleFavorite(id);
-            }}
+            onClick={handleToggleFavorite}
             className={`p-2.5 rounded-full backdrop-blur-sm border transition-all duration-300 ${
               isFavorite 
                 ? 'bg-red-500 text-white border-red-400 shadow-lg scale-110' 
@@ -133,6 +146,7 @@ const MedicalStoreCard = ({ store, isFavorite, onToggleFavorite }) => {
             </button>
             <a
               href={`tel:${phone}`}
+              onClick={handleCallStore}
               className="flex items-center justify-center px-4 py-3 border-2 border-slate-300 rounded-2xl hover:bg-white hover:border-slate-400 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
             >
               <Phone className="w-4 h-4 text-slate-600" />

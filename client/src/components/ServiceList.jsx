@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import ServiceCard from './ServiceCard';
 import { mockServices } from '../data/mockData';
 
@@ -7,6 +8,7 @@ const ServiceList = () => {
 
   const toggleFavorite = (serviceId) => {
     const newFavorites = new Set(favorites);
+    const service = mockServices.find(s => s.id === serviceId);
     if (newFavorites.has(serviceId)) {
       newFavorites.delete(serviceId);
     } else {

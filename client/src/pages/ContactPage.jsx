@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { 
   ArrowLeft, 
   Mail, 
@@ -31,8 +32,14 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    toast.success('Message sent successfully! We\'ll get back to you within 24 hours.');
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+      category: 'general'
+    });
   };
 
   const handleInputChange = (e) => {

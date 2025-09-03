@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { Search, MapPin, Filter, Star, Building, Stethoscope, X, ChevronDown, Pill } from 'lucide-react';
 
 const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory }) => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [specialty, setSpecialty] = useState('');
@@ -32,6 +35,25 @@ const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory 
     }
   };
 
+  const handleResultClick = (result) => {
+    if (result.type === 'hospital') {
+      toast.success(`Opening ${result.name}`);
+      navigate(`/hospital/${result.hospitalId}/services`);
+    } else if (result.type === 'medical-store') {
+      toast.success(`Opening ${result.name}`);
+      navigate(`/medical-store/${result.storeId}/products`);
+    } else if (result.type === 'service' || result.type === 'product') {
+      if (result.hospitalId) {
+        toast.success(`Opening ${result.hospitalName || result.storeName} for ${result.name}`);
+        navigate(`/hospital/${result.hospitalId}/services`);
+      } else if (result.storeId) {
+        toast.success(`Opening ${result.storeName} for ${result.name}`);
+        navigate(`/medical-store/${result.storeId}/products`);
+      }
+    } else if (result.type === 'healthcare-service') {
+      toast.info(`${result.name} - Contact for more information`);
+    }
+  };
   const handleFilterChange = (filterType, value) => {
     const newFilters = { ...activeFilters, [filterType]: value };
     setActiveFilters(newFilters);
@@ -364,7 +386,11 @@ const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory 
           {displayResults.length > 0 ? (
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {displayResults.map((result, index) => (
-                <div key={index} className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200 hover:shadow-lg transition-all duration-200 hover:scale-105 group">
+                <div 
+                  key={index} 
+                  onClick={() => handleResultClick(result)}
+                  className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200 hover:shadow-lg transition-all duration-200 hover:scale-105 group cursor-pointer"
+                >
                   <div className="flex items-start space-x-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-md ${
                         result.type === 'hospital' || result.type === 'service'

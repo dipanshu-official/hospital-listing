@@ -1,4 +1,5 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import { Building, Pill, Stethoscope, Heart } from 'lucide-react';
 
 const CategorySelector = ({ selectedCategory, onCategoryChange }) => {
@@ -35,6 +36,11 @@ const CategorySelector = ({ selectedCategory, onCategoryChange }) => {
     }
   ];
 
+  const handleCategoryChange = (categoryId) => {
+    const category = categories.find(c => c.id === categoryId);
+    toast.success(`Switched to ${category.name}`);
+    onCategoryChange(categoryId);
+  };
   return (
     <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8 mb-8 animate-fade-in">
       {/* Header */}
@@ -59,7 +65,7 @@ const CategorySelector = ({ selectedCategory, onCategoryChange }) => {
           return (
             <button
               key={category.id}
-              onClick={() => onCategoryChange(category.id)}
+              onClick={() => handleCategoryChange(category.id)}
               className={`group relative overflow-hidden rounded-3xl border-2 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
                 isSelected 
                   ? `${category.borderColor} shadow-2xl scale-105` 

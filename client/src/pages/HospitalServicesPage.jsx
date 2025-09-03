@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { 
   ArrowLeft, 
   Star, 
@@ -56,8 +57,10 @@ const HospitalServicesPage = () => {
     const newFavorites = new Set(favorites);
     if (newFavorites.has(hospital.id)) {
       newFavorites.delete(hospital.id);
+      toast.error(`Removed ${hospital.name} from favorites`);
     } else {
       newFavorites.add(hospital.id);
+      toast.success(`Added ${hospital.name} to favorites`);
     }
     setFavorites(newFavorites);
   };
