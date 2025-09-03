@@ -560,3 +560,266 @@ export const mockHospitals = [
     ]
   }
 ];
+
+export const mockMedicalStores = [
+  {
+    id: 1,
+    name: "HealthPlus Pharmacy",
+    type: "Chain Pharmacy",
+    rating: 4.6,
+    reviewCount: 324,
+    address: "456 Market St, San Francisco, CA 94102",
+    phone: "(415) 555-0456",
+    website: "https://healthplus.com",
+    email: "info@healthplus.com",
+    image: "https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=500",
+    services: ["Prescription Filling", "Vaccinations", "Health Screenings", "Medical Supplies"],
+    isOpen24h: true,
+    isVerified: true,
+    established: 1995,
+    description: "HealthPlus Pharmacy is your trusted neighborhood pharmacy providing comprehensive pharmaceutical services and health products with expert consultation.",
+    products: [
+      {
+        category: "Prescription Medications",
+        items: [
+          { name: "Generic Medications", price: "$15-50", description: "Cost-effective generic prescriptions" },
+          { name: "Brand Name Medications", price: "$25-150", description: "Original brand medications" },
+          { name: "Specialty Medications", price: "$100-500", description: "Specialized treatment medications" }
+        ]
+      },
+      {
+        category: "Over-the-Counter",
+        items: [
+          { name: "Pain Relief", price: "$8-25", description: "Aspirin, ibuprofen, acetaminophen" },
+          { name: "Cold & Flu", price: "$12-30", description: "Cough drops, decongestants, fever reducers" },
+          { name: "Vitamins & Supplements", price: "$15-60", description: "Daily vitamins and health supplements" }
+        ]
+      },
+      {
+        category: "Medical Supplies",
+        items: [
+          { name: "Blood Pressure Monitor", price: "$45-120", description: "Digital BP monitoring devices" },
+          { name: "Diabetic Supplies", price: "$25-80", description: "Glucose meters, test strips, lancets" },
+          { name: "First Aid Kits", price: "$20-50", description: "Complete first aid supplies" }
+        ]
+      }
+    ],
+    facilities: [
+      "Drive-Through Service",
+      "Consultation Room",
+      "Vaccination Station",
+      "Medical Equipment Rental",
+      "Insurance Processing",
+      "Free Delivery Service"
+    ],
+    insurance: [
+      "Blue Cross Blue Shield",
+      "Aetna",
+      "Cigna",
+      "UnitedHealthcare",
+      "Medicare",
+      "Medicaid"
+    ]
+  },
+  {
+    id: 2,
+    name: "MediCare Plus",
+    type: "Independent Pharmacy",
+    rating: 4.8,
+    reviewCount: 189,
+    address: "789 Health Ave, Los Angeles, CA 90210",
+    phone: "(323) 555-0789",
+    website: "https://medicareplus.com",
+    email: "contact@medicareplus.com",
+    image: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=500",
+    services: ["Prescription Filling", "Compounding", "Health Consultations", "Medical Equipment"],
+    isOpen24h: false,
+    isVerified: true,
+    established: 2008,
+    description: "MediCare Plus is a family-owned pharmacy specializing in personalized pharmaceutical care and custom medication compounding with a focus on patient wellness.",
+    products: [
+      {
+        category: "Compounded Medications",
+        items: [
+          { name: "Custom Formulations", price: "$50-200", description: "Personalized medication preparations" },
+          { name: "Pediatric Compounds", price: "$40-120", description: "Child-friendly medication forms" },
+          { name: "Veterinary Compounds", price: "$30-100", description: "Pet medication preparations" }
+        ]
+      },
+      {
+        category: "Health & Wellness",
+        items: [
+          { name: "Nutritional Counseling", price: "$75", description: "Professional nutrition guidance" },
+          { name: "Medication Therapy Management", price: "$100", description: "Comprehensive medication review" },
+          { name: "Health Screenings", price: "$25-50", description: "Blood pressure, cholesterol checks" }
+        ]
+      },
+      {
+        category: "Medical Equipment",
+        items: [
+          { name: "Mobility Aids", price: "$50-300", description: "Wheelchairs, walkers, canes" },
+          { name: "CPAP Supplies", price: "$100-400", description: "Sleep apnea equipment" },
+          { name: "Compression Garments", price: "$40-150", description: "Medical compression wear" }
+        ]
+      }
+    ],
+    facilities: [
+      "Compounding Laboratory",
+      "Private Consultation Room",
+      "Medical Equipment Fitting",
+      "Insurance Verification",
+      "Home Delivery",
+      "Medication Synchronization"
+    ],
+    insurance: [
+      "Blue Cross Blue Shield",
+      "Aetna",
+      "Cigna",
+      "UnitedHealthcare",
+      "Medicare",
+      "Medicaid",
+      "Kaiser Permanente"
+    ]
+  },
+  {
+    id: 3,
+    name: "QuickCare Pharmacy",
+    type: "Express Pharmacy",
+    rating: 4.4,
+    reviewCount: 567,
+    address: "234 Express Blvd, Seattle, WA 98101",
+    phone: "(206) 555-0234",
+    website: "https://quickcarepharmacy.com",
+    email: "service@quickcarepharmacy.com",
+    image: "https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=500",
+    services: ["Fast Prescription Filling", "Online Ordering", "Mobile App", "Curbside Pickup"],
+    isOpen24h: false,
+    isVerified: true,
+    established: 2015,
+    description: "QuickCare Pharmacy focuses on convenience and speed, offering digital prescription management and rapid fulfillment services for busy professionals and families.",
+    products: [
+      {
+        category: "Express Services",
+        items: [
+          { name: "15-Minute Prescription Fill", price: "$5 fee", description: "Rapid prescription processing" },
+          { name: "Online Prescription Refill", price: "Free", description: "Digital refill requests" },
+          { name: "Curbside Pickup", price: "Free", description: "Contactless medication pickup" }
+        ]
+      },
+      {
+        category: "Health Products",
+        items: [
+          { name: "COVID-19 Test Kits", price: "$15-25", description: "At-home testing kits" },
+          { name: "Personal Care Items", price: "$5-40", description: "Health and hygiene products" },
+          { name: "Baby Care Products", price: "$10-35", description: "Infant health and care items" }
+        ]
+      },
+      {
+        category: "Digital Services",
+        items: [
+          { name: "Medication Reminders", price: "Free", description: "SMS and app notifications" },
+          { name: "Drug Interaction Checker", price: "Free", description: "Safety verification service" },
+          { name: "Prescription History", price: "Free", description: "Digital medication records" }
+        ]
+      }
+    ],
+    facilities: [
+      "Express Pickup Window",
+      "Mobile App Integration",
+      "Online Ordering System",
+      "Automated Dispensing",
+      "Digital Consultation",
+      "Prescription Delivery"
+    ],
+    insurance: [
+      "Blue Cross Blue Shield",
+      "Aetna",
+      "Cigna",
+      "UnitedHealthcare",
+      "Medicare",
+      "Medicaid",
+      "Express Scripts"
+    ]
+  }
+];
+
+export const mockServices = [
+  {
+    id: 1,
+    name: "Home Healthcare Services",
+    type: "Healthcare Service",
+    rating: 4.7,
+    reviewCount: 234,
+    address: "Service Area: San Francisco Bay Area",
+    phone: "(415) 555-0987",
+    website: "https://homehealthcare.com",
+    email: "care@homehealthcare.com",
+    image: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=500",
+    specialties: ["Nursing Care", "Physical Therapy", "Medical Equipment", "Elderly Care"],
+    isOpen24h: true,
+    isVerified: true,
+    established: 2010,
+    description: "Professional home healthcare services bringing quality medical care directly to your home with certified nurses and therapists.",
+    serviceOfferings: [
+      {
+        category: "Nursing Services",
+        items: [
+          { name: "Skilled Nursing Visit", price: "$120/visit", description: "Professional nursing care at home" },
+          { name: "Medication Management", price: "$80/visit", description: "Medication administration and monitoring" },
+          { name: "Wound Care", price: "$100/visit", description: "Professional wound treatment" }
+        ]
+      },
+      {
+        category: "Therapy Services",
+        items: [
+          { name: "Physical Therapy", price: "$150/session", description: "In-home physical rehabilitation" },
+          { name: "Occupational Therapy", price: "$140/session", description: "Daily living skills therapy" },
+          { name: "Speech Therapy", price: "$130/session", description: "Communication and swallowing therapy" }
+        ]
+      },
+      {
+        category: "Support Services",
+        items: [
+          { name: "Personal Care Assistant", price: "$25/hour", description: "Daily living assistance" },
+          { name: "Companion Care", price: "$20/hour", description: "Social support and companionship" },
+          { name: "Medical Equipment Rental", price: "$50-200/month", description: "Hospital beds, wheelchairs, oxygen" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Mobile Diagnostic Services",
+    type: "Diagnostic Service",
+    rating: 4.5,
+    reviewCount: 156,
+    address: "Service Area: Greater Los Angeles",
+    phone: "(323) 555-0654",
+    website: "https://mobilediagnostics.com",
+    email: "book@mobilediagnostics.com",
+    image: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=500",
+    specialties: ["Mobile X-Ray", "Ultrasound", "EKG", "Blood Draw"],
+    isOpen24h: false,
+    isVerified: true,
+    established: 2018,
+    description: "Bringing diagnostic services directly to your location with state-of-the-art mobile equipment and certified technicians.",
+    serviceOfferings: [
+      {
+        category: "Imaging Services",
+        items: [
+          { name: "Mobile X-Ray", price: "$200", description: "Portable X-ray imaging at your location" },
+          { name: "Mobile Ultrasound", price: "$350", description: "Ultrasound imaging services" },
+          { name: "Mobile EKG", price: "$150", description: "Heart rhythm monitoring" }
+        ]
+      },
+      {
+        category: "Laboratory Services",
+        items: [
+          { name: "Blood Draw", price: "$50", description: "Professional blood collection" },
+          { name: "Urine Collection", price: "$25", description: "Sample collection service" },
+          { name: "Rapid Testing", price: "$75", description: "Quick diagnostic tests" }
+        ]
+      }
+    ]
+  }
+];

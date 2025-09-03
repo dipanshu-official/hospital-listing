@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Filter, Star, Building, Stethoscope, X, ChevronDown } from 'lucide-react';
+import { Search, MapPin, Filter, Star, Building, Stethoscope, X, ChevronDown, Pill } from 'lucide-react';
 
-const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
+const SearchFilters = ({ onSearch, searchResults, isSearching, selectedCategory }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [specialty, setSpecialty] = useState('');
@@ -132,15 +132,55 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
   ];
 
   const displayResults = filteredResults.length > 0 ? filteredResults : searchResults;
+
+  const getSearchPlaceholder = () => {
+    switch (selectedCategory) {
+      case 'hospitals':
+        return 'Search hospitals, doctors, services...';
+      case 'medical-stores':
+        return 'Search pharmacies, medications, supplies...';
+      case 'services':
+        return 'Search healthcare services, home care...';
+      default:
+        return 'Search healthcare providers...';
+    }
+  };
+
+  const getCategoryTitle = () => {
+    switch (selectedCategory) {
+      case 'hospitals':
+        return 'Discover Quality Healthcare Providers';
+      case 'medical-stores':
+        return 'Find Trusted Pharmacies & Medical Stores';
+      case 'services':
+        return 'Explore Healthcare Services';
+      default:
+        return 'Discover Quality Healthcare Providers';
+    }
+  };
+
+  const getCategoryDescription = () => {
+    switch (selectedCategory) {
+      case 'hospitals':
+        return 'Browse our comprehensive directory of hospitals and medical centers. Use the search below to find specific providers or services.';
+      case 'medical-stores':
+        return 'Find pharmacies, medical supply stores, and healthcare products. Search for medications, equipment, and health supplies.';
+      case 'services':
+        return 'Discover home healthcare, mobile services, and specialized medical support. Find services that come to you.';
+      default:
+        return 'Browse our comprehensive directory of healthcare providers.';
+    }
+  };
+
   return (
     <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-200/50 p-8 mb-8 animate-fade-in">
       {/* Hero Section */}
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold text-slate-800 mb-4">
-          Discover Quality Healthcare Providers
+          {getCategoryTitle()}
         </h2>
         <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
-          Browse our comprehensive directory of hospitals and medical centers. Use the search below to find specific providers or services.
+          {getCategoryDescription()}
         </p>
       </div>
 
@@ -151,7 +191,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
-            placeholder="Search hospitals, doctors, services..."
+            placeholder={getSearchPlaceholder()}
             value={searchTerm}
             onChange={handleSearchChange}
             className="w-full pl-12 pr-4 py-4 border-2 border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-200 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl"
@@ -172,7 +212,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
 
         {/* Search Button */}
         <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105">
-          Search Hospitals
+          Search {selectedCategory === 'hospitals' ? 'Hospitals' : selectedCategory === 'medical-stores' ? 'Stores' : 'Services'}
         </button>
       </div>
 
@@ -186,7 +226,7 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
           <span>Advanced Filters</span>
         </button>
         <div className="text-sm text-slate-600 font-medium bg-white/70 px-4 py-2 rounded-xl shadow-sm">
-          {isSearching ? `Found ${searchResults.length} results` : 'Showing all hospitals'}
+          {isSearching ? `Found ${searchResults.length} results` : `Showing all ${selectedCategory}`}
         </div>
       </div>
 
@@ -327,12 +367,20 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                 <div key={index} className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200 hover:shadow-lg transition-all duration-200 hover:scale-105 group">
                   <div className="flex items-start space-x-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-md ${
-                      result.type === 'hospital' 
+                        result.type === 'hospital' || result.type === 'service'
                         ? 'bg-gradient-to-br from-blue-500 to-indigo-600' 
-                        : 'bg-gradient-to-br from-indigo-500 to-purple-600'
+                          : result.type === 'medical-store' || result.type === 'product'
+                          ? 'bg-gradient-to-br from-emerald-500 to-green-600'
+                          : result.type === 'healthcare-service'
+                          ? 'bg-gradient-to-br from-purple-500 to-indigo-600'
+                          : 'bg-gradient-to-br from-indigo-500 to-purple-600'
                     }`}>
                       {result.type === 'hospital' ? (
                         <Building className="w-6 h-6 text-white" />
+                      ) : result.type === 'medical-store' ? (
+                        <Pill className="w-6 h-6 text-white" />
+                      ) : result.type === 'healthcare-service' ? (
+                        <Stethoscope className="w-6 h-6 text-white" />
                       ) : (
                         <Stethoscope className="w-6 h-6 text-white" />
                       )}
@@ -346,9 +394,17 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                         <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
                           result.type === 'hospital' 
                             ? 'bg-blue-100 text-blue-700' 
+                            : result.type === 'medical-store' || result.type === 'product'
+                            ? 'bg-emerald-100 text-emerald-700'
+                            : result.type === 'healthcare-service'
+                            ? 'bg-purple-100 text-purple-700'
                             : 'bg-indigo-100 text-indigo-700'
                         }`}>
-                          {result.type === 'hospital' ? 'Hospital' : 'Service'}
+                          {result.type === 'hospital' ? 'Hospital' 
+                           : result.type === 'medical-store' ? 'Pharmacy'
+                           : result.type === 'product' ? 'Product'
+                           : result.type === 'healthcare-service' ? 'Service'
+                           : 'Service'}
                         </span>
                       </div>
                       
@@ -367,10 +423,32 @@ const SearchFilters = ({ onSearch, searchResults, isSearching }) => {
                             <span>{result.location}</span>
                           </div>
                         </div>
+                      ) : result.type === 'medical-store' ? (
+                        <div className="flex items-center space-x-4 text-sm">
+                          <div className="flex items-center space-x-1">
+                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                            <span className="font-semibold">{result.rating}</span>
+                          </div>
+                          <div className="flex items-center space-x-1 text-gray-500">
+                            <MapPin className="w-4 h-4" />
+                            <span>{result.location}</span>
+                          </div>
+                        </div>
+                      ) : result.type === 'healthcare-service' ? (
+                        <div className="flex items-center space-x-4 text-sm">
+                          <div className="flex items-center space-x-1">
+                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                            <span className="font-semibold">{result.rating}</span>
+                          </div>
+                          <div className="flex items-center space-x-1 text-gray-500">
+                            <MapPin className="w-4 h-4" />
+                            <span>{result.location}</span>
+                          </div>
+                        </div>
                       ) : (
                         <div className="flex items-center justify-between">
                           <div className="text-sm text-slate-600">
-                            <span className="font-medium">{result.hospitalName}</span> • {result.category}
+                            <span className="font-medium">{result.hospitalName || result.storeName}</span> • {result.category}
                           </div>
                           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-1 rounded-lg text-sm font-bold shadow-md">
                             {result.price}
