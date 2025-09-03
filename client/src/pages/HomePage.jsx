@@ -221,11 +221,14 @@ const HomePage = () => {
       {/* Hero Section */}
       <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
         {/* Background Image */}
-        <div className="relative h-96 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
+        <div className="relative h-[600px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+            className="absolute inset-0 w-full h-full object-cover bg-center bg-no-repeat opacity-40"
             style={{
-              backgroundImage: 'url(https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=1200)'
+              backgroundImage: 'url(https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
