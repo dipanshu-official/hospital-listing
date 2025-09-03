@@ -4,6 +4,9 @@ import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import HospitalsPage from './pages/HospitalsPage';
+import MedicalStoresPage from './pages/MedicalStoresPage';
+import ServicesPage from './pages/ServicesPage';
 import HospitalServicesPage from './pages/HospitalServicesPage';
 import MedicalStoreDetailsPage from './pages/MedicalStoreDetailsPage';
 import AboutPage from './pages/AboutPage';
@@ -18,6 +21,9 @@ function App() {
       <main className="container mx-auto px-4 py-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/hospitals" element={<HospitalsPage />} />
+          <Route path="/medical-stores" element={<MedicalStoresPage />} />
+          <Route path="/services" element={<ServicesPage />} />
           <Route path="/hospital/:id/services" element={<HospitalServicesPage />} />
           <Route path="/medical-store/:id/products" element={<MedicalStoreDetailsPage />} />
           <Route path="/about" element={<AboutPage />} />
