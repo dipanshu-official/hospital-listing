@@ -158,4 +158,4 @@ const ServiceCard = ({ service, isFavorite, onToggleFavorite }) => {
   );
 };
 
-export default MedicalStoreCard;
+export default ServiceCard;
